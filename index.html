@@ -1024,6 +1024,32 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
   .ctas-level-row .clr-num { font-size: 1.2rem; }
 }
 
+/* ===== DYNAMIC BUBBLE ARROW ===== */
+@keyframes arrowShake {
+  0%   { transform: rotate(0deg) translateY(0); }
+  10%  { transform: rotate(-12deg) translateY(-3px); }
+  20%  { transform: rotate(12deg) translateY(-5px); }
+  30%  { transform: rotate(-10deg) translateY(-3px); }
+  40%  { transform: rotate(10deg) translateY(-2px); }
+  50%  { transform: rotate(-6deg) translateY(-4px); }
+  60%  { transform: rotate(6deg) translateY(-2px); }
+  70%  { transform: rotate(-4deg) translateY(-1px); }
+  80%  { transform: rotate(4deg) translateY(0); }
+  90%  { transform: rotate(-2deg) translateY(0); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+@keyframes arrowFloat {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-6px); }
+}
+#ctasArrowSvg {
+  animation: arrowFloat 2.2s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+#ctasArrowSvg.shaking {
+  animation: arrowShake 0.7s ease-in-out, arrowFloat 2.2s ease-in-out 0.7s infinite;
+}
+
 </style>
 </head>
 <body>
@@ -2529,7 +2555,23 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 </div>
 
 <!-- LIVE BUBBLE -->
-<div class="live-ctas">
+<div class="live-ctas" style="display:flex;align-items:center;gap:14px;">
+  <!-- Dynamic Severity Arrow -->
+  <div id="ctasArrow" style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <span id="ctasArrowLabel" style="font-family:'Montserrat',sans-serif;font-size:0.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;transition:color 0.4s;">SEVERITY</span>
+    <svg id="ctasArrowSvg" viewBox="0 0 28 80" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:80px;filter:drop-shadow(0 0 6px #aaa);transition:filter 0.4s;">
+      <defs>
+        <linearGradient id="arrowGradDyn" x1="0" y1="1" x2="0" y2="0">
+          <stop id="arrowStop1" offset="0%" stop-color="#aaa"/>
+          <stop id="arrowStop2" offset="100%" stop-color="#aaa"/>
+        </linearGradient>
+      </defs>
+      <!-- Arrow shaft -->
+      <rect x="11" y="22" width="6" height="52" rx="3" fill="url(#arrowGradDyn)"/>
+      <!-- Arrow head -->
+      <polygon points="14,2 2,26 26,26" fill="url(#arrowGradDyn)"/>
+    </svg>
+  </div>
   <div class="ctas-bubble" id="ctasBubble" onclick="scrollToResult()">
     <div>
       <div class="ctas-bubble-text">CURRENT CTAS</div>
@@ -2865,6 +2907,20 @@ function updateDisplay(level,reasons){
   var bubble=document.getElementById('ctasBubble');
   bubble.style.background=BCOLORS[level];
   document.getElementById('bubbleLevel').textContent='CTAS '+level;
+  // Update dynamic arrow color + shake
+  var arrowColors=['','#e74c3c','#e67e22','#d4ac0d','#27ae60','#2980b9'];
+  var arrowGlows=['','rgba(231,76,60,0.8)','rgba(230,126,34,0.8)','rgba(212,172,13,0.8)','rgba(39,174,96,0.8)','rgba(41,128,185,0.8)'];
+  var arrowLabels=['','CRITICAL','EMERGENT','URGENT','LESS URGENT','NON-URGENT'];
+  var col=arrowColors[level]||'#aaa';
+  var glow=arrowGlows[level]||'rgba(170,170,170,0.5)';
+  var stop1=document.getElementById('arrowStop1');
+  var stop2=document.getElementById('arrowStop2');
+  if(stop1&&stop2){stop1.setAttribute('stop-color',col);stop2.setAttribute('stop-color',col);}
+  var svg=document.getElementById('ctasArrowSvg');
+  if(svg){svg.style.filter='drop-shadow(0 0 8px '+glow+') drop-shadow(0 0 16px '+glow+')';}
+  var lbl=document.getElementById('ctasArrowLabel');
+  if(lbl){lbl.textContent=arrowLabels[level]||'SEVERITY';lbl.style.color=col;}
+  if(svg){svg.classList.remove('shaking');void svg.offsetWidth;svg.classList.add('shaking');setTimeout(function(){svg.classList.remove('shaking');},700);}
 }
 
 function scrollToResult(){document.getElementById('step8').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -6331,6 +6387,20 @@ function updateDisplay(level,reasons){
   var bubble=document.getElementById('ctasBubble');
   bubble.style.background=BCOLORS[level];
   document.getElementById('bubbleLevel').textContent='CTAS '+level;
+  // Update dynamic arrow color + shake
+  var arrowColors=['','#e74c3c','#e67e22','#d4ac0d','#27ae60','#2980b9'];
+  var arrowGlows=['','rgba(231,76,60,0.8)','rgba(230,126,34,0.8)','rgba(212,172,13,0.8)','rgba(39,174,96,0.8)','rgba(41,128,185,0.8)'];
+  var arrowLabels=['','CRITICAL','EMERGENT','URGENT','LESS URGENT','NON-URGENT'];
+  var col=arrowColors[level]||'#aaa';
+  var glow=arrowGlows[level]||'rgba(170,170,170,0.5)';
+  var stop1=document.getElementById('arrowStop1');
+  var stop2=document.getElementById('arrowStop2');
+  if(stop1&&stop2){stop1.setAttribute('stop-color',col);stop2.setAttribute('stop-color',col);}
+  var svg=document.getElementById('ctasArrowSvg');
+  if(svg){svg.style.filter='drop-shadow(0 0 8px '+glow+') drop-shadow(0 0 16px '+glow+')';}
+  var lbl=document.getElementById('ctasArrowLabel');
+  if(lbl){lbl.textContent=arrowLabels[level]||'SEVERITY';lbl.style.color=col;}
+  if(svg){svg.classList.remove('shaking');void svg.offsetWidth;svg.classList.add('shaking');setTimeout(function(){svg.classList.remove('shaking');},700);}
 }
 
 function scrollToResult(){document.getElementById('step8').scrollIntoView({behavior:'smooth',block:'start'});}
