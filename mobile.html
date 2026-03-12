@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Prehospital CTAS — Mobile | Dr. Metwalley</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;-webkit-text-size-adjust:100%;}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#2c3e50;overflow-x:hidden;width:100%;max-width:100vw;}
+
+/* ── VARIABLES ── */
+:root{
+  --red:#e74c3c;--orange:#e67e22;--gold:#f39c12;--green:#27ae60;--blue:#2980b9;
+  --navy:#1a1a2e;--text1:#1a1a2e;--text2:#4a4a6a;--white:#ffffff;
+  --l1:#e74c3c;--l2:#e67e22;--l3:#f1c40f;--l4:#27ae60;--l5:#2980b9;
+}
+
+/* ── TOP NAV ── */
+.mob-header{position:sticky;top:0;z-index:999;background:var(--navy);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.3);}
+.mob-header-title{font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:800;color:#fff;letter-spacing:0.5px;}
+.mob-menu-btn{background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:8px 12px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;}
+
+/* ── DRAWER ── */
+.mob-drawer{position:fixed;top:0;left:-100%;width:82vw;max-width:300px;height:100vh;background:var(--navy);z-index:9999;transition:left 0.3s ease;overflow-y:auto;padding:20px 0 80px;}
+.mob-drawer.open{left:0;}
+.mob-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9998;display:none;}
+.mob-drawer-overlay.open{display:block;}
+.mob-drawer-header{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.mob-drawer-title{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;color:#fff;}
+.mob-drawer-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.4rem;cursor:pointer;float:right;margin-top:-2px;}
+.mob-nav-item{display:block;padding:14px 20px;color:rgba(255,255,255,0.8);text-decoration:none;font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.2s;}
+.mob-nav-item:active{background:rgba(255,255,255,0.1);}
+
+/* ── SECTIONS ── */
+.mob-section{padding:28px 16px 36px;border-bottom:1px solid #e8ecf0;background:#fff;}
+.mob-section:nth-child(even){background:#f8f9fa;}
+.mob-section-title{font-family:'Montserrat',sans-serif;font-size:1.25rem;font-weight:900;color:var(--navy);margin-bottom:6px;line-height:1.3;}
+.mob-section-line{height:3px;border-radius:2px;margin-bottom:18px;width:60px;}
+.mob-section-icon{font-size:1.8rem;margin-bottom:10px;display:block;}
+
+/* ── CARDS ── */
+.mob-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-left:4px solid var(--blue);}
+.mob-card h3{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.mob-card p,.mob-card li{font-size:0.88rem;color:var(--text2);line-height:1.65;}
+.mob-card ul{padding-left:18px;margin-top:6px;}
+.mob-card li{margin-bottom:4px;}
+.mob-card-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Montserrat',sans-serif;font-size:0.75rem;font-weight:800;margin-bottom:8px;}
+
+/* ── LEVEL CARDS ── */
+.mob-level{border-radius:12px;padding:16px;margin-bottom:14px;color:#fff;}
+.mob-level-num{font-family:'Montserrat',sans-serif;font-size:2.5rem;font-weight:900;opacity:0.3;float:right;line-height:1;}
+.mob-level-name{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:6px;}
+.mob-level p{font-size:0.85rem;line-height:1.6;opacity:0.92;}
+.mob-level ul{padding-left:16px;margin-top:8px;}
+.mob-level li{font-size:0.82rem;margin-bottom:3px;opacity:0.9;}
+.mob-level-time{margin-top:10px;background:rgba(0,0,0,0.2);border-radius:6px;padding:6px 10px;font-family:'Montserrat',sans-serif;font-size:0.78rem;font-weight:700;display:inline-block;}
+.lc1{background:linear-gradient(135deg,#c0392b,#e74c3c);}
+.lc2{background:linear-gradient(135deg,#d35400,#e67e22);}
+.lc3{background:linear-gradient(135deg,#b7950b,#f1c40f);color:#2c3e50;}
+.lc3 p,.lc3 li{opacity:0.85;}
+.lc4{background:linear-gradient(135deg,#1e8449,#27ae60);}
+.lc5{background:linear-gradient(135deg,#1a5276,#2980b9);}
+
+/* ── TAGS ── */
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;margin-right:4px;margin-bottom:2px;}
+.tag-l1{background:#fde8e6;color:#c0392b;}
+.tag-l2{background:#fdebd0;color:#d35400;}
+.tag-l3{background:#fef9e7;color:#9a7d0a;}
+.tag-l4{background:#e9f7ef;color:#1e8449;}
+.tag-l5{background:#ebf5fb;color:#1a5276;}
+
+/* ── MODIFIER CARDS ── */
+.mob-modifier{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-top:4px solid var(--blue);}
+.mob-modifier-icon{font-size:1.6rem;margin-bottom:8px;}
+.mob-modifier h3{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.mob-modifier li{font-size:0.85rem;color:var(--text2);line-height:1.6;margin-bottom:4px;}
+.mob-modifier ul{padding-left:16px;}
+
+/* ── TRANSPORT CARDS ── */
+.mob-transport{border-radius:12px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px;}
+.mob-transport-num{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;background:var(--navy);border-radius:8px;padding:4px 10px;flex-shrink:0;}
+.mob-transport p{font-size:0.85rem;color:var(--text2);line-height:1.6;}
+.mob-transport strong{color:var(--navy);}
+
+/* ── COMPARISON TABLE ── */
+.mob-table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-bottom:16px;}
+.mob-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.mob-table th{background:var(--navy);color:#fff;padding:10px 8px;font-family:'Montserrat',sans-serif;font-weight:700;text-align:left;white-space:nowrap;}
+.mob-table td{padding:9px 8px;border-bottom:1px solid #e8ecf0;vertical-align:top;line-height:1.5;}
+.mob-table tr:nth-child(even) td{background:#f8f9fa;}
+.sym-yes{color:#27ae60;font-size:1rem;}
+.sym-no{color:#e74c3c;font-size:1rem;}
+.sym-warn{color:#e67e22;font-size:1rem;}
+
+/* ── DECEPTION / PITFALL CARDS ── */
+.mob-warn-card{background:#fff8f0;border-radius:12px;padding:16px;margin-bottom:14px;border-left:4px solid #e67e22;}
+.mob-warn-card h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#d35400;margin-bottom:6px;}
+.mob-warn-card p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+.mob-danger-card{background:#fff5f5;border-radius:12px;padding:16px;margin-bottom:14px;border-left:4px solid #e74c3c;}
+.mob-danger-card h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#c0392b;margin-bottom:6px;}
+.mob-danger-card p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+
+/* ── PEARL CARDS ── */
+.mob-pearl{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.07);}
+.mob-pearl-icon{font-size:1.8rem;margin-bottom:8px;}
+.mob-pearl h4{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.mob-pearl p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+
+/* ── COPYRIGHT WATERMARK ── */
+.mob-copyright{text-align:center;padding:8px 16px;background:rgba(26,26,46,0.04);margin:20px 0 0;border-top:1px solid rgba(26,26,46,0.08);}
+.mob-copyright p{font-size:0.65rem;color:rgba(26,26,46,0.35);letter-spacing:1px;font-family:'Montserrat',sans-serif;text-transform:uppercase;}
+
+/* ── STICKY BOTTOM BAR ── */
+.mob-sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy);padding:10px 12px;display:flex;gap:8px;z-index:998;box-shadow:0 -2px 16px rgba(0,0,0,0.2);}
+.mob-sticky-bar button{flex:1;padding:10px 4px;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;letter-spacing:0.3px;}
+.mob-btn-calc{background:var(--navy);color:#fff;border:2px solid rgba(255,255,255,0.3)!important;}
+.mob-btn-report{background:#27ae60;color:#fff;}
+.mob-btn-share{background:#2980b9;color:#fff;}
+
+/* ── CTAS BADGE ── */
+.mob-ctas-badge{position:fixed;bottom:72px;right:14px;background:var(--red);color:#fff;border-radius:12px;padding:8px 12px;text-align:center;z-index:997;box-shadow:0 4px 16px rgba(231,76,60,0.4);min-width:80px;}
+.mob-ctas-badge-label{font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:1px;opacity:0.8;}
+.mob-ctas-badge-value{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:900;}
+
+/* ── HERO SECTION ── */
+.mob-hero{background:linear-gradient(160deg,#fff5f5 0%,#fff8f0 25%,#fffef0 50%,#f0fff5 75%,#f0f8ff 100%);padding:36px 20px 28px;text-align:center;border-bottom:1px solid #e8ecf0;}
+.mob-hero-badge{display:inline-block;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:16px;text-transform:uppercase;}
+.mob-hero-title{font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:900;color:var(--navy);line-height:1.2;margin-bottom:8px;}
+.mob-hero-subtitle{font-size:0.88rem;color:var(--text2);line-height:1.6;margin-bottom:16px;}
+.mob-hero-author{font-family:'Montserrat',sans-serif;font-size:0.78rem;font-weight:700;color:var(--blue);letter-spacing:1px;}
+.mob-hero-org{font-size:0.72rem;color:var(--text2);margin-top:4px;}
+
+/* ── PROCESS STEPS ── */
+.mob-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.mob-step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
+.mob-step-content h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.mob-step-content p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+
+/* ── ANALOGY CARDS ── */
+.mob-analogy{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+.mob-analogy-icon{font-size:2rem;margin-bottom:8px;}
+.mob-analogy h4{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.mob-analogy p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+
+/* ── QUOTE BOX ── */
+.mob-quote{background:linear-gradient(135deg,#1a1a2e,#0f3460);border-radius:14px;padding:22px 18px;margin:20px 0;text-align:center;}
+.mob-quote p{font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:600;color:#fff;line-height:1.75;font-style:italic;}
+.mob-quote-attr{font-size:0.7rem;color:rgba(255,255,255,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-top:10px;}
+
+/* ── BEYOND CTAS ── */
+.mob-beyond{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;border-top:4px solid var(--blue);box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+.mob-beyond-icon{font-size:1.6rem;margin-bottom:8px;}
+.mob-beyond h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.mob-beyond p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+
+/* ── ADULT/PED TABLE ROWS ── */
+.mob-case-table{width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:16px;}
+.mob-case-table th{background:var(--navy);color:#fff;padding:9px 8px;font-family:'Montserrat',sans-serif;font-weight:700;text-align:left;}
+.mob-case-table td{padding:8px;border-bottom:1px solid #e8ecf0;vertical-align:top;line-height:1.5;}
+.mob-case-table tr:nth-child(even) td{background:#f8f9fa;}
+.badge-l1{background:#fde8e6;color:#c0392b;border-radius:4px;padding:2px 6px;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;white-space:nowrap;}
+.badge-l2{background:#fdebd0;color:#d35400;border-radius:4px;padding:2px 6px;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;white-space:nowrap;}
+.badge-l3{background:#fef9e7;color:#9a7d0a;border-radius:4px;padding:2px 6px;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;white-space:nowrap;}
+.badge-l4{background:#e9f7ef;color:#1e8449;border-radius:4px;padding:2px 6px;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;white-space:nowrap;}
+.badge-l5{background:#ebf5fb;color:#1a5276;border-radius:4px;padding:2px 6px;font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:800;white-space:nowrap;}
+
+/* ── BOTTOM PADDING for sticky bar ── */
+.mob-bottom-pad{height:90px;}
+
+/* ── SECTION DIVIDER ── */
+.mob-divider{height:4px;background:linear-gradient(90deg,var(--red),var(--blue));margin:0;}
+
+/* ── WHEN/NOT CTAS ── */
+.mob-when-yes{background:#e9f7ef;border-radius:12px;padding:16px;margin-bottom:14px;}
+.mob-when-yes h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#1e8449;margin-bottom:8px;}
+.mob-when-no{background:#fff5f5;border-radius:12px;padding:16px;margin-bottom:14px;}
+.mob-when-no h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#c0392b;margin-bottom:8px;}
+.mob-when-yes li,.mob-when-no li{font-size:0.85rem;color:var(--text2);line-height:1.6;margin-bottom:4px;padding-left:4px;}
+.mob-when-yes ul,.mob-when-no ul{padding-left:16px;}
+
+/* ── PEDIATRIC PAT ── */
+.mob-pat{border-radius:12px;padding:14px;margin-bottom:12px;text-align:center;}
+.mob-pat-icon{font-size:2rem;margin-bottom:6px;}
+.mob-pat h4{font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:800;margin-bottom:6px;}
+.mob-pat p{font-size:0.82rem;line-height:1.6;}
+
+/* ── MEDICAL DIRECTOR ── */
+.mob-director-card{background:#eaf4fb;border-radius:12px;padding:16px;margin-bottom:14px;border-left:4px solid var(--blue);}
+.mob-director-card h4{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#1a5276;margin-bottom:6px;}
+.mob-director-card p,.mob-director-card li{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+.mob-director-card ul{padding-left:16px;margin-top:6px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     DRAWER OVERLAY
+══════════════════════════════════════════════ -->
+<div class="mob-drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- ══════════════════════════════════════════════
+     SIDE DRAWER NAV
+══════════════════════════════════════════════ -->
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-drawer-header">
+    <button class="mob-drawer-close" onclick="closeDrawer()">✕</button>
+    <div class="mob-drawer-title">📚 Sections</div>
+  </div>
+  <a class="mob-nav-item" href="#overview" onclick="closeDrawer()">🏥 Overview</a>
+  <a class="mob-nav-item" href="#process" onclick="closeDrawer()">🔄 CTAS Process</a>
+  <a class="mob-nav-item" href="#levels" onclick="closeDrawer()">🎯 Five Levels</a>
+  <a class="mob-nav-item" href="#rules" onclick="closeDrawer()">⚖️ Rules</a>
+  <a class="mob-nav-item" href="#modifiers" onclick="closeDrawer()">🔧 Modifiers</a>
+  <a class="mob-nav-item" href="#adult-table" onclick="closeDrawer()">📋 Adult Cases</a>
+  <a class="mob-nav-item" href="#pediatric" onclick="closeDrawer()">👶 Pediatric</a>
+  <a class="mob-nav-item" href="#ped-table" onclick="closeDrawer()">📋 Pediatric Cases</a>
+  <a class="mob-nav-item" href="#analogy" onclick="closeDrawer()">🌍 Analogies</a>
+  <a class="mob-nav-item" href="#when-ctas" onclick="closeDrawer()">✅ When/Not</a>
+  <a class="mob-nav-item" href="#medical-director" onclick="closeDrawer()">📞 Med Director</a>
+  <a class="mob-nav-item" href="#comparison" onclick="closeDrawer()">⚖️ Comparison</a>
+  <a class="mob-nav-item" href="#beyond-ctas" onclick="closeDrawer()">🎯 Beyond CTAS</a>
+  <a class="mob-nav-item" href="#deception" onclick="closeDrawer()">🚫 Deceptions</a>
+  <a class="mob-nav-item" href="#pitfalls" onclick="closeDrawer()">🔍 Pitfalls</a>
+  <a class="mob-nav-item" href="#pearls" onclick="closeDrawer()">💎 Pearls of Wisdom</a>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STICKY HEADER
+══════════════════════════════════════════════ -->
+<div class="mob-header">
+  <div class="mob-header-title">📚 Prehospital CTAS</div>
+  <button class="mob-menu-btn" onclick="openDrawer()">☰ MENU</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<div class="mob-hero" id="hero">
+  <div class="mob-hero-badge">🚑 Saudi Red Crescent Authority</div>
+  <div class="mob-hero-title">Prehospital CTAS</div>
+  <div class="mob-hero-subtitle">Canadian Triage & Acuity Scale<br>Adapted for Prehospital EMS Practice</div>
+  <div class="mob-hero-author">Dr. Metwalley Amin Helwa</div>
+  <div class="mob-hero-org">EMS Physician · SRCA Prehospital Medicine</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 1 — OVERVIEW
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="overview">
+  <span class="mob-section-icon">❤️</span>
+  <div class="mob-section-title">What is Prehospital CTAS?</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#e74c3c,#2980b9);"></div>
+
+  <div class="mob-card" style="border-color:#e74c3c;">
+    <div class="mob-card-num">01</div>
+    <h3>⚡ Five-Level Scale</h3>
+    <p>CTAS is based on a five-level scale. <strong>Level 1 (Resuscitation)</strong> = sickest. <strong>Level 5 (Non-Urgent)</strong> = least ill.</p>
+  </div>
+  <div class="mob-card" style="border-color:#e67e22;">
+    <div class="mob-card-num">02</div>
+    <h3>📋 Chief Complaint Driven</h3>
+    <p>CTAS level is determined by the patient's <strong>presenting complaint</strong> and its relationship to potential sentinel events.</p>
+  </div>
+  <div class="mob-card" style="border-color:#f1c40f;">
+    <div class="mob-card-num">03</div>
+    <h3>🔧 Modifiers Refine Acuity</h3>
+    <p>First and second order modifiers further refine acuity beyond the chief complaint to capture subtle clinical signs.</p>
+  </div>
+  <div class="mob-card" style="border-color:#27ae60;">
+    <div class="mob-card-num">04</div>
+    <h3>🕐 Applied Minimum Twice</h3>
+    <p>Prehospital CTAS is applied and documented a <strong>minimum of 2 times</strong> per patient — on arrival and at departure/after intervention.</p>
+  </div>
+  <div class="mob-card" style="border-color:#2980b9;">
+    <div class="mob-card-num">05</div>
+    <h3>👤 Adult &amp; Pediatric</h3>
+    <p>Separate frameworks for <strong>adults</strong> and <strong>pediatric patients (&lt;14 years)</strong> with age-specific vital sign norms and the Pediatric Assessment Triangle.</p>
+  </div>
+  <div class="mob-card" style="border-color:#8e44ad;">
+    <div class="mob-card-num">06</div>
+    <h3>⚖️ Non-Judgmental Approach</h3>
+    <p>Paramedics must remain <strong>consistent and non-judgmental</strong>. Prejudice can increase patient risk through incorrect acuity assignment.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 2 — CTAS PROCESS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="process">
+  <span class="mob-section-icon">🔄</span>
+  <div class="mob-section-title">The 4-Step CTAS Process</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#2980b9,#27ae60);"></div>
+
+  <div class="mob-step">
+    <div class="mob-step-num" style="background:#e74c3c;">1</div>
+    <div class="mob-step-content">
+      <h4>⚡ Quick Look</h4>
+      <p>Immediate visual assessment on arrival. Can assign <strong>CTAS 1 only</strong>. Identifies patients requiring immediate resuscitation before any history is taken.</p>
+    </div>
+  </div>
+  <div class="mob-step">
+    <div class="mob-step-num" style="background:#e67e22;">2</div>
+    <div class="mob-step-content">
+      <h4>📋 Presenting Complaint</h4>
+      <p>Establish the chief complaint and match it to the CTAS complaint list. This gives the <strong>baseline CTAS level</strong> before modifiers are applied.</p>
+    </div>
+  </div>
+  <div class="mob-step">
+    <div class="mob-step-num" style="background:#f1c40f; color:#2c3e50;">3</div>
+    <div class="mob-step-content">
+      <h4>🔧 First Order Modifiers</h4>
+      <p>Apply vital signs, pain scale, LOC (GCS/AVPU), bleeding disorders, MOI, and temperature. These can <strong>upgrade or confirm</strong> the initial level.</p>
+    </div>
+  </div>
+  <div class="mob-step">
+    <div class="mob-step-num" style="background:#27ae60;">4</div>
+    <div class="mob-step-content">
+      <h4>🔬 Second Order Modifiers</h4>
+      <p>Apply complaint-specific modifiers (blood glucose, hypertension, obstetrics, mental health). These <strong>cannot downgrade</strong> a level already set higher.</p>
+    </div>
+  </div>
+
+  <div class="mob-quote">
+    <p>"Quick Look can only assign CTAS 1. For all other levels, the full 4-step process is mandatory — no shortcuts."</p>
+    <div class="mob-quote-attr">— CTAS Prehospital Protocol · Dr. Metwalley Amin Helwa</div>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 3 — FIVE LEVELS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="levels">
+  <span class="mob-section-icon">🎯</span>
+  <div class="mob-section-title">The Five CTAS Levels</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#e74c3c,#e67e22,#f1c40f,#27ae60,#2980b9);"></div>
+
+  <div class="mob-level lc1">
+    <div class="mob-level-num">1</div>
+    <div class="mob-level-name">🔴 Resuscitation</div>
+    <p>Threats to life or limb with imminent risk of deterioration requiring immediate aggressive interventions.</p>
+    <ul>
+      <li>Arrested or pre/post-arrest patients</li>
+      <li>Active resuscitation required</li>
+      <li>Airway, ventilation, or circulatory support</li>
+      <li>ABCs requiring immediate intervention</li>
+    </ul>
+    <div class="mob-level-time">⏱ Immediate — 0 min</div>
+  </div>
+
+  <div class="mob-level lc2">
+    <div class="mob-level-num">2</div>
+    <div class="mob-level-name">🟠 Emergent</div>
+    <p>Potential threat to life, limb or function requiring rapid interventions and condition-specific controlled medical acts.</p>
+    <ul>
+      <li>Serious illness/injury with potential deterioration</li>
+      <li>May require resuscitation</li>
+      <li>Controlled acts often applied in field</li>
+      <li>Rapid further intervention required</li>
+    </ul>
+    <div class="mob-level-time">⏱ Very Urgent — 15 min</div>
+  </div>
+
+  <div class="mob-level lc3">
+    <div class="mob-level-num">3</div>
+    <div class="mob-level-name">🟡 Urgent</div>
+    <p>Could potentially progress to serious problem requiring emergency interventions. May affect ability to function.</p>
+    <ul>
+      <li>Normal vital signs</li>
+      <li>Suggests more serious acute process</li>
+      <li>Moderate acute pain (4–7/10)</li>
+      <li>Pain scales most commonly used here</li>
+    </ul>
+    <div class="mob-level-time">⏱ Urgent — 30 min</div>
+  </div>
+
+  <div class="mob-level lc4">
+    <div class="mob-level-num">4</div>
+    <div class="mob-level-name">🟢 Less-Urgent</div>
+    <p>Conditions relating to patient age, distress, or potential for deterioration that would benefit from intervention.</p>
+    <ul>
+      <li>Stable vital signs, lower pain scales</li>
+      <li>Chief complaint not acutely serious</li>
+      <li>Acute intervention not urgent</li>
+      <li>Many chronic illness patients without exacerbation</li>
+    </ul>
+    <div class="mob-level-time">⏱ Less Urgent — 60 min</div>
+  </div>
+
+  <div class="mob-level lc5">
+    <div class="mob-level-num">5</div>
+    <div class="mob-level-name">🔵 Non-Urgent</div>
+    <p>Acute but non-urgent, or part of a chronic problem. Investigations or interventions could be delayed.</p>
+    <ul>
+      <li>Truly minor complaints</li>
+      <li>No immediate risk to patient</li>
+      <li>Limited degree of pain</li>
+      <li>Medical directives use is limited</li>
+    </ul>
+    <div class="mob-level-time">⏱ Non-Urgent — 120 min</div>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 4 — RULES
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="rules">
+  <span class="mob-section-icon">⚖️</span>
+  <div class="mob-section-title">Rules for Assigning CTAS</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#e67e22,#b7950b);"></div>
+
+  <div class="mob-card" style="border-color:#e74c3c;">
+    <div class="mob-card-num" style="background:#e74c3c;">1</div>
+    <h3>📝 Rule #1 — Minimum Two Scores</h3>
+    <ul>
+      <li><strong>CTAS #1:</strong> On arrival — before interventions. Marker for response times.</li>
+      <li><strong>CTAS #2:</strong> At departure / after intervention — determines destination.</li>
+      <li>Both are <strong>mandatory</strong> on E-PCR.</li>
+      <li>Additional scores if condition changes en route.</li>
+    </ul>
+  </div>
+
+  <div class="mob-card" style="border-color:#e67e22;">
+    <div class="mob-card-num" style="background:#e67e22;">2</div>
+    <h3>📢 Rule #2 — Reported CTAS Level</h3>
+    <p>Report the <strong>first CTAS level</strong> to the receiving ED, or the <strong>updated one</strong> if condition changed. Notify ED of any changes en route.</p>
+  </div>
+
+  <div class="mob-card" style="border-color:#e74c3c;">
+    <div class="mob-card-num" style="background:#c0392b;">3</div>
+    <h3>🔴 Rule #3 — VSA &amp; Resuscitation</h3>
+    <p>For a VSA patient who is resuscitated, CTAS <strong>must stay as CTAS 1</strong> permanently. The initial severity must be recorded regardless of outcome.</p>
+  </div>
+
+  <div class="mob-card" style="border-color:#2c3e50;">
+    <div class="mob-card-num" style="background:#2c3e50;">4</div>
+    <h3>☠️ Rule #4 — Obviously Dead</h3>
+    <p>Patient determined "obviously dead" on arrival: CTAS must be assigned and documented as <strong>zero (0)</strong> on E-PCR.</p>
+  </div>
+
+  <div class="mob-card" style="border-color:#2980b9;">
+    <div class="mob-card-num" style="background:#2980b9;">5</div>
+    <h3>🕐 Transport Time Considerations</h3>
+    <ul>
+      <li><strong>Short transport (&lt;10 min):</strong> May not have time to update CTAS before arrival.</li>
+      <li><strong>Long transport (≥20 min):</strong> Greater likelihood of condition change — update ED of CTAS changes.</li>
+    </ul>
+  </div>
+
+  <div class="mob-card" style="border-color:#8e44ad;">
+    <div class="mob-card-num" style="background:#8e44ad;">6</div>
+    <h3>⚠️ Hard-to-Assign Patients</h3>
+    <p>If patient doesn't fit any category: consult <strong>SRCA medical control</strong> or use clinical judgement. Never leave a patient unassigned.</p>
+  </div>
+
+  <div class="mob-section-title" style="font-size:1rem;margin:20px 0 12px;color:#1e8449;">🚑 Transport Destination Guidelines</div>
+
+  <div class="mob-transport" style="background:#fde8e6;">
+    <div class="mob-transport-num" style="background:#e74c3c;">1</div>
+    <div><p><strong>Resuscitation:</strong> Nearest / closest <strong>most appropriate</strong> facility capable of required care. No exceptions unless directed by medical control.</p></div>
+  </div>
+  <div class="mob-transport" style="background:#fdebd0;">
+    <div class="mob-transport-num" style="background:#e67e22;">2</div>
+    <div><p><strong>Emergent:</strong> Nearest / closest <strong>most appropriate</strong> facility based on communication between paramedics, medical control, and receiving facility.</p></div>
+  </div>
+  <div class="mob-transport" style="background:#e9f7ef;">
+    <div class="mob-transport-num" style="background:#27ae60;">3·4·5</div>
+    <div><p><strong>Urgent to Non-Urgent:</strong> <strong>Most available</strong> receiving facility. Greater flexibility based on availability and patient preference.</p></div>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 5 — MODIFIERS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="modifiers">
+  <span class="mob-section-icon">🔧</span>
+  <div class="mob-section-title">First &amp; Second Order Modifiers</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#8e44ad,#2980b9);"></div>
+
+  <div style="background:#f4f6f9;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.82rem;color:var(--text2);line-height:1.6;">
+    <strong>First Order Modifiers</strong> are applied once the presenting complaint is determined. They are divided into <strong>Group A</strong> (ABCs &amp; Vital Signs) and <strong>Group B</strong> (Condition-Specific). Apply <em>all</em> that are relevant.
+  </div>
+
+  <div class="mob-modifier" style="border-color:#e74c3c;">
+    <div class="mob-modifier-icon">❤️</div>
+    <h3>A — Heart Rate</h3>
+    <ul>
+      <li><span class="tag tag-l1">CTAS 1</span> HR &lt;40 or &gt;180 bpm · Absent pulse</li>
+      <li><span class="tag tag-l2">CTAS 2</span> HR 40–50 or 150–180 bpm</li>
+      <li><span class="tag tag-l3">CTAS 3</span> HR 51–60 or 120–149 bpm</li>
+      <li>Pediatric: use age-specific HR norms</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#e67e22;">
+    <div class="mob-modifier-icon">🩺</div>
+    <h3>A — Blood Pressure (Systolic)</h3>
+    <ul>
+      <li><span class="tag tag-l1">CTAS 1</span> SBP &lt;70 mmHg (adult) · Absent</li>
+      <li><span class="tag tag-l2">CTAS 2</span> SBP 70–90 mmHg · Haemodynamic compromise</li>
+      <li><span class="tag tag-l3">CTAS 3</span> SBP 90–100 mmHg with symptoms</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#3498db;">
+    <div class="mob-modifier-icon">🫁</div>
+    <h3>B — Breathing / Respiratory</h3>
+    <ul>
+      <li><span class="tag tag-l1">CTAS 1</span> SpO₂ &lt;90% · RR &lt;10 or &gt;35/min · Agonal breathing · Central cyanosis</li>
+      <li><span class="tag tag-l2">CTAS 2</span> SpO₂ 90–94% · Moderate distress · Accessory muscle use · Marked tachypnoea</li>
+      <li><span class="tag tag-l3">CTAS 3</span> SpO₂ 95–97% · Mild distress · Tachypnoea without severe distress</li>
+      <li><span class="tag tag-l4">CTAS 4</span> SpO₂ ≥98% · No distress · Mild wheeze or cough only</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#9b59b6;">
+    <div class="mob-modifier-icon">🧠</div>
+    <h3>D — Level of Consciousness (GCS)</h3>
+    <ul>
+      <li><span class="tag tag-l1">CTAS 1</span> GCS ≤8 · Unresponsive (P or U on AVPU)</li>
+      <li><span class="tag tag-l2">CTAS 2</span> GCS 9–13 · Responds to Voice (V on AVPU)</li>
+      <li><span class="tag tag-l3">CTAS 3</span> GCS 14 · Confused/disoriented</li>
+      <li>Use AVPU: Alert · Voice · Pain · Unresponsive</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#e74c3c;">
+    <div class="mob-modifier-icon">🔥</div>
+    <h3>Pain Scale (0–10)</h3>
+    <ul>
+      <li><span class="tag tag-l2">CTAS 2</span> Severe pain: 8–10/10</li>
+      <li><span class="tag tag-l3">CTAS 3</span> Moderate pain: 4–7/10 (most common modifier)</li>
+      <li>Use age-appropriate scales for pediatric patients</li>
+      <li>Document on E-PCR consistently</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#c0392b;">
+    <div class="mob-modifier-icon">🩸</div>
+    <h3>Bleeding Disorders</h3>
+    <ul>
+      <li>Applies to: haemophilia · anticoagulants · liver failure</li>
+      <li>Higher risk for serious bleeding complications</li>
+      <li>Upgrade CTAS level by one if bleeding disorder present</li>
+      <li>Document on E-PCR</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#e67e22;">
+    <div class="mob-modifier-icon">🚗</div>
+    <h3>Mechanism of Injury (MOI)</h3>
+    <ul>
+      <li><span class="tag tag-l2">CTAS 2</span> High-energy: MVC &gt;60 km/h · ejection · rollover · death in vehicle · pedestrian struck · fall &gt;6m</li>
+      <li><span class="tag tag-l3">CTAS 3</span> Moderate: MVC &lt;60 km/h · fall 3–6m · assault with weapon</li>
+      <li>Predicts occult injury even with normal vitals</li>
+    </ul>
+  </div>
+
+  <div style="background:#eaf4fb;border-radius:10px;padding:12px 14px;margin:16px 0;font-size:0.82rem;color:var(--text2);line-height:1.6;">
+    <strong>Second Order Modifiers</strong> are complaint-specific, applied after first order modifiers. They <strong>cannot downgrade</strong> a CTAS level already set higher.
+  </div>
+
+  <div class="mob-modifier" style="border-color:#a9cce3;">
+    <div class="mob-modifier-icon">🩸</div>
+    <h3>Blood Glucose</h3>
+    <ul>
+      <li><span class="tag tag-l2">CTAS 2</span> BG &lt;60 mg/dl with altered LOC (hypoglycaemia)</li>
+      <li><span class="tag tag-l2">CTAS 2</span> BG &gt;324 mg/dl (severe hyperglycaemia)</li>
+      <li><span class="tag tag-l3">CTAS 3</span> BG &lt;60 without altered LOC</li>
+      <li>Always assess BG in altered LOC patients</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#a9cce3;">
+    <div class="mob-modifier-icon">📈</div>
+    <h3>Hypertension</h3>
+    <ul>
+      <li><span class="tag tag-l2">CTAS 2</span> SBP &gt;220 or DBP &gt;130 mmHg</li>
+      <li><span class="tag tag-l3">CTAS 3</span> SBP 180–220 or DBP 110–130 mmHg</li>
+      <li>Hypertensive crisis with end-organ symptoms → CTAS 2</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#a9cce3;">
+    <div class="mob-modifier-icon">🤰</div>
+    <h3>Obstetrics (≥20 Weeks)</h3>
+    <ul>
+      <li>Active labor · vaginal bleeding · severe abdominal pain → CTAS 2</li>
+      <li>Decreased fetal movement · mild contractions → CTAS 3</li>
+      <li>Supine hypotension: position on left side</li>
+    </ul>
+  </div>
+
+  <div class="mob-modifier" style="border-color:#a9cce3;">
+    <div class="mob-modifier-icon">🧠</div>
+    <h3>Mental Health Modifiers</h3>
+    <ul>
+      <li><span class="tag tag-l2">CTAS 2</span> Actively suicidal/homicidal with plan &amp; means</li>
+      <li><span class="tag tag-l2">CTAS 2</span> Severe agitation · violent · danger to self/others</li>
+      <li><span class="tag tag-l3">CTAS 3</span> Suicidal ideation without plan · moderate agitation</li>
+    </ul>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 6 — ADULT CASES TABLE
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="adult-table">
+  <span class="mob-section-icon">📋</span>
+  <div class="mob-section-title">Adult Clinical Cases by CTAS Level</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#e74c3c,#2980b9);"></div>
+
+  <div class="mob-table-wrap">
+    <table class="mob-case-table">
+      <thead>
+        <tr><th>Presenting Complaint</th><th>CTAS</th><th>Key Criteria</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cardiac arrest / VSA</td><td><span class="badge-l1">CTAS 1</span></td><td>No pulse, no breathing</td></tr>
+        <tr><td>Respiratory arrest</td><td><span class="badge-l1">CTAS 1</span></td><td>Apnoea, agonal breathing</td></tr>
+        <tr><td>Major trauma / high MOI</td><td><span class="badge-l1">CTAS 1</span></td><td>Haemodynamic compromise</td></tr>
+        <tr><td>Altered LOC (GCS ≤8)</td><td><span class="badge-l1">CTAS 1</span></td><td>Unresponsive, P or U on AVPU</td></tr>
+        <tr><td>Severe chest pain</td><td><span class="badge-l2">CTAS 2</span></td><td>Diaphoresis, radiation, 8–10/10</td></tr>
+        <tr><td>Stroke symptoms</td><td><span class="badge-l2">CTAS 2</span></td><td>Facial droop, arm drift, speech</td></tr>
+        <tr><td>Severe allergic reaction</td><td><span class="badge-l2">CTAS 2</span></td><td>Urticaria + systemic signs</td></tr>
+        <tr><td>Anaphylaxis</td><td><span class="badge-l1">CTAS 1</span></td><td>Airway compromise or shock</td></tr>
+        <tr><td>Diabetic emergency (severe)</td><td><span class="badge-l2">CTAS 2</span></td><td>BG &lt;60 with altered LOC</td></tr>
+        <tr><td>Seizure (active)</td><td><span class="badge-l2">CTAS 2</span></td><td>Ongoing or post-ictal</td></tr>
+        <tr><td>Moderate chest pain</td><td><span class="badge-l3">CTAS 3</span></td><td>4–7/10, stable vitals</td></tr>
+        <tr><td>Moderate dyspnoea</td><td><span class="badge-l3">CTAS 3</span></td><td>SpO₂ 95–97%, mild distress</td></tr>
+        <tr><td>Abdominal pain (moderate)</td><td><span class="badge-l3">CTAS 3</span></td><td>4–7/10, stable</td></tr>
+        <tr><td>Minor laceration</td><td><span class="badge-l4">CTAS 4</span></td><td>Controlled bleeding, stable</td></tr>
+        <tr><td>Mild back pain</td><td><span class="badge-l4">CTAS 4</span></td><td>Chronic, 1–3/10, ambulatory</td></tr>
+        <tr><td>Minor complaint / cold</td><td><span class="badge-l5">CTAS 5</span></td><td>No acute risk, non-urgent</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 7 — PEDIATRIC
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="pediatric">
+  <span class="mob-section-icon">👶</span>
+  <div class="mob-section-title">Pediatric CTAS (&lt;14 Years)</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#8e44ad,#e74c3c);"></div>
+
+  <div style="background:#f4f6f9;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.83rem;color:var(--text2);line-height:1.65;">
+    Children are <strong>not small adults</strong>. Pediatric CTAS requires age-specific vital sign norms, the <strong>Pediatric Assessment Triangle (PAT)</strong>, and age-appropriate pain scales.
+  </div>
+
+  <div class="mob-section-title" style="font-size:1rem;margin-bottom:12px;color:#8e44ad;">🔺 Pediatric Assessment Triangle (PAT)</div>
+
+  <div class="mob-pat" style="background:#fde8e6;">
+    <div class="mob-pat-icon">👁️</div>
+    <h4 style="color:#c0392b;">Appearance</h4>
+    <p style="color:#4a4a6a;">Tone · Interactiveness · Consolability · Look/Gaze · Speech/Cry. Abnormal appearance = significant illness until proven otherwise.</p>
+  </div>
+  <div class="mob-pat" style="background:#fdebd0;">
+    <div class="mob-pat-icon">🫁</div>
+    <h4 style="color:#d35400;">Work of Breathing</h4>
+    <p style="color:#4a4a6a;">Abnormal sounds · Abnormal positioning · Retractions · Nasal flaring. Increased work = respiratory distress.</p>
+  </div>
+  <div class="mob-pat" style="background:#ebf5fb;">
+    <div class="mob-pat-icon">🩸</div>
+    <h4 style="color:#1a5276;">Circulation to Skin</h4>
+    <p style="color:#4a4a6a;">Pallor · Mottling · Cyanosis. Abnormal skin circulation = shock or severe illness.</p>
+  </div>
+
+  <div class="mob-section-title" style="font-size:1rem;margin:16px 0 10px;color:#8e44ad;">📊 Age-Specific Vital Sign Norms</div>
+  <div class="mob-table-wrap">
+    <table class="mob-case-table">
+      <thead>
+        <tr><th>Age Group</th><th>HR (bpm)</th><th>RR (/min)</th><th>SBP (mmHg)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Infant (&lt;1 yr)</td><td>100–160</td><td>30–60</td><td>70–90</td></tr>
+        <tr><td>Toddler (1–3 yr)</td><td>90–150</td><td>24–40</td><td>80–100</td></tr>
+        <tr><td>Preschool (3–5 yr)</td><td>80–140</td><td>22–34</td><td>80–110</td></tr>
+        <tr><td>School (6–12 yr)</td><td>70–120</td><td>18–30</td><td>90–120</td></tr>
+        <tr><td>Adolescent (13–14 yr)</td><td>60–100</td><td>12–20</td><td>100–130</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>⚠️ The "Quiet Child" Warning</h4>
+    <p>A quiet, unresponsive child is NOT a calm child — it is a <strong>critically ill child</strong>. Children compensate until they suddenly decompensate. Silence in a sick child is an emergency sign.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 8 — PEDIATRIC CASES TABLE
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="ped-table">
+  <span class="mob-section-icon">📋</span>
+  <div class="mob-section-title">Pediatric Clinical Cases</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#8e44ad,#e74c3c);"></div>
+
+  <div class="mob-table-wrap">
+    <table class="mob-case-table">
+      <thead>
+        <tr><th>Presenting Complaint</th><th>CTAS</th><th>Key Criteria</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cardiac/respiratory arrest</td><td><span class="badge-l1">CTAS 1</span></td><td>VSA, apnoea</td></tr>
+        <tr><td>Severe respiratory distress</td><td><span class="badge-l1">CTAS 1</span></td><td>SpO₂ &lt;90%, agonal</td></tr>
+        <tr><td>Altered LOC (GCS ≤8)</td><td><span class="badge-l1">CTAS 1</span></td><td>Unresponsive</td></tr>
+        <tr><td>Anaphylaxis with airway</td><td><span class="badge-l1">CTAS 1</span></td><td>Stridor, shock</td></tr>
+        <tr><td>Status epilepticus</td><td><span class="badge-l2">CTAS 2</span></td><td>Seizure &gt;5 min</td></tr>
+        <tr><td>Moderate respiratory distress</td><td><span class="badge-l2">CTAS 2</span></td><td>SpO₂ 90–94%, retractions</td></tr>
+        <tr><td>Severe dehydration</td><td><span class="badge-l2">CTAS 2</span></td><td>Tachycardia, poor skin turgor</td></tr>
+        <tr><td>High-energy trauma</td><td><span class="badge-l2">CTAS 2</span></td><td>MOI, altered vitals</td></tr>
+        <tr><td>Febrile seizure (resolved)</td><td><span class="badge-l3">CTAS 3</span></td><td>Post-ictal, stable vitals</td></tr>
+        <tr><td>Moderate dehydration</td><td><span class="badge-l3">CTAS 3</span></td><td>Tachycardia, alert</td></tr>
+        <tr><td>Mild respiratory distress</td><td><span class="badge-l3">CTAS 3</span></td><td>SpO₂ 95–97%, mild wheeze</td></tr>
+        <tr><td>Minor injury / laceration</td><td><span class="badge-l4">CTAS 4</span></td><td>Stable, controlled</td></tr>
+        <tr><td>Mild fever, alert child</td><td><span class="badge-l4">CTAS 4</span></td><td>Temp &lt;39°C, playful</td></tr>
+        <tr><td>Minor complaint</td><td><span class="badge-l5">CTAS 5</span></td><td>No acute risk</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 9 — ANALOGIES
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="analogy">
+  <span class="mob-section-icon">🌍</span>
+  <div class="mob-section-title">Understanding CTAS Through Analogies</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#2980b9,#27ae60);"></div>
+
+  <div class="mob-analogy">
+    <div class="mob-analogy-icon">✈️</div>
+    <h4>The Airport Analogy</h4>
+    <p>Just as airports prioritize flights by emergency status — not arrival time — CTAS prioritizes patients by clinical urgency. A CTAS 1 patient is the equivalent of a "Mayday" call: everything stops, all resources deploy immediately.</p>
+  </div>
+
+  <div class="mob-analogy">
+    <div class="mob-analogy-icon">🏗️</div>
+    <h4>The Building Fire Analogy</h4>
+    <p>A fire chief doesn't treat all rooms equally — they assess which areas are most dangerous and allocate resources accordingly. CTAS gives the paramedic the same systematic framework to allocate urgency and resources.</p>
+  </div>
+
+  <div class="mob-analogy">
+    <div class="mob-analogy-icon">🎼</div>
+    <h4>The Orchestra Analogy</h4>
+    <p>CTAS is the conductor's score. Each modifier is an instrument. The paramedic is the conductor — reading all signals simultaneously, synthesizing them into a single, decisive clinical judgment: the CTAS level.</p>
+  </div>
+
+  <div class="mob-analogy">
+    <div class="mob-analogy-icon">⚖️</div>
+    <h4>The Legal Analogy</h4>
+    <p>Just as a judge weighs evidence before a verdict, the paramedic weighs clinical evidence (complaint + modifiers) before a CTAS verdict. Both require consistency, objectivity, and documentation.</p>
+  </div>
+
+  <div class="mob-quote">
+    <p>"CTAS is not a form to fill — it is a clinical decision that protects the patient from the moment of first contact to the moment of ED handover."</p>
+    <div class="mob-quote-attr">— Dr. Metwalley Amin Helwa · SRCA Prehospital Medicine</div>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 10 — WHEN / NOT TO USE CTAS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="when-ctas">
+  <span class="mob-section-icon">✅</span>
+  <div class="mob-section-title">When &amp; When Not to Use CTAS</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#27ae60,#e74c3c);"></div>
+
+  <div class="mob-when-yes">
+    <h4>✅ CTAS IS Used When:</h4>
+    <ul>
+      <li>Any patient contact by SRCA paramedic or EMT</li>
+      <li>All emergency calls — medical, trauma, obstetric, pediatric</li>
+      <li>Inter-facility transfers</li>
+      <li>Walk-in patients at EMS stations</li>
+      <li>Mass casualty incidents (modified CTAS/START triage)</li>
+      <li>Any patient requiring E-PCR documentation</li>
+    </ul>
+  </div>
+
+  <div class="mob-when-no">
+    <h4>🚫 CTAS is NOT Used When:</h4>
+    <ul>
+      <li>Patient is obviously dead on arrival (CTAS 0 instead)</li>
+      <li>Patient refuses assessment and transport (document refusal)</li>
+      <li>Non-patient contacts (bystander assistance only)</li>
+      <li>Administrative or non-clinical calls</li>
+    </ul>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>⚠️ CTAS is NOT a Refusal Tool</h4>
+    <p>CTAS level does NOT determine whether a patient is transported. A CTAS 5 patient still has the right to transport. CTAS determines <strong>urgency and destination</strong> — not eligibility for care.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 11 — MEDICAL DIRECTOR
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="medical-director">
+  <span class="mob-section-icon">📞</span>
+  <div class="mob-section-title">Role of the Medical Director</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#2980b9,#1a5276);"></div>
+
+  <div class="mob-director-card">
+    <h4>🏥 Oversight &amp; Quality Assurance</h4>
+    <p>The SRCA Medical Director oversees the clinical quality of CTAS application across all paramedic teams. Regular audits of E-PCR data identify patterns of under-triage or over-triage.</p>
+  </div>
+
+  <div class="mob-director-card">
+    <h4>📞 Medical Control Consultation</h4>
+    <p>When a paramedic encounters a patient who is difficult to assign a CTAS level to, contacting <strong>SRCA medical control</strong> is the appropriate step. The medical director or designee provides guidance.</p>
+  </div>
+
+  <div class="mob-director-card">
+    <h4>📋 Protocol Authority</h4>
+    <p>The Medical Director has authority over all CTAS-related protocols, including destination decisions, controlled medical acts, and deviation from standard protocols in exceptional circumstances.</p>
+  </div>
+
+  <div class="mob-director-card">
+    <h4>📚 Education &amp; Training</h4>
+    <p>Responsible for ensuring all SRCA paramedics and EMTs receive initial and ongoing CTAS training. Competency verification is a medical director responsibility.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 12 — COMPARISON
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="comparison">
+  <span class="mob-section-icon">⚖️</span>
+  <div class="mob-section-title">CTAS vs. Vital Signs: Comparison</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#2c3e50,#2980b9);"></div>
+
+  <div class="mob-table-wrap">
+    <table class="mob-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Vital Signs Only</th>
+          <th>CTAS (Full)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Data type</strong></td>
+          <td>Objective measured values</td>
+          <td>Condition + values + context</td>
+        </tr>
+        <tr>
+          <td><strong>Covers CTAS 1</strong></td>
+          <td><span class="sym-warn">⚠️</span> Yes, partially</td>
+          <td><span class="sym-yes">✓</span> Yes, modified</td>
+        </tr>
+        <tr>
+          <td><strong>Pediatric thresholds</strong></td>
+          <td><span class="sym-warn">⚠️</span> If age-specific</td>
+          <td><span class="sym-yes">✓</span> Every criterion</td>
+        </tr>
+        <tr>
+          <td><strong>Reassessment required</strong></td>
+          <td><span class="sym-yes">✓</span> Every 15 min</td>
+          <td><span class="sym-yes">✓</span> Every 15 min</td>
+        </tr>
+        <tr>
+          <td><strong>E-PCR documentation</strong></td>
+          <td><span class="sym-yes">✓</span> Mandatory</td>
+          <td><span class="sym-yes">✓</span> Mandatory</td>
+        </tr>
+        <tr>
+          <td><strong>Captures occult injury</strong></td>
+          <td><span class="sym-no">✗</span> Not reliably</td>
+          <td><span class="sym-yes">✓</span> Via MOI modifier</td>
+        </tr>
+        <tr>
+          <td><strong>Pain assessment</strong></td>
+          <td><span class="sym-no">✗</span> Not included</td>
+          <td><span class="sym-yes">✓</span> Integrated modifier</td>
+        </tr>
+        <tr>
+          <td><strong>Mental health</strong></td>
+          <td><span class="sym-no">✗</span> Not addressed</td>
+          <td><span class="sym-yes">✓</span> Dedicated modifier</td>
+        </tr>
+        <tr>
+          <td><strong>ED communication value</strong></td>
+          <td><span class="sym-warn">⚠️</span> Partial</td>
+          <td><span class="sym-yes">✓</span> Complete clinical picture</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 13 — BEYOND CTAS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="beyond-ctas">
+  <span class="mob-section-icon">🎯</span>
+  <div class="mob-section-title">Beyond CTAS: The Bigger Picture</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#1a1a2e,#2980b9);"></div>
+
+  <div class="mob-beyond">
+    <div class="mob-beyond-icon">🤝</div>
+    <h4>ED Handover Communication</h4>
+    <p>CTAS is the universal language between prehospital and in-hospital teams. Communicating the CTAS level on arrival gives the ED team an immediate, standardized clinical picture before the patient is even unloaded.</p>
+  </div>
+
+  <div class="mob-beyond">
+    <div class="mob-beyond-icon">📊</div>
+    <h4>System Performance Measurement</h4>
+    <p>CTAS data drives EMS system quality improvement. Response time benchmarks, resource allocation decisions, and staffing models are all built on aggregated CTAS data from E-PCR records.</p>
+  </div>
+
+  <div class="mob-beyond">
+    <div class="mob-beyond-icon">⚖️</div>
+    <h4>Legal &amp; Medico-Legal Protection</h4>
+    <p>A correctly documented CTAS level is your clinical and legal record. In cases of adverse outcomes, the E-PCR with both CTAS scores demonstrates systematic, evidence-based clinical decision-making.</p>
+  </div>
+
+  <div class="mob-beyond">
+    <div class="mob-beyond-icon">🌍</div>
+    <h4>International Standardization</h4>
+    <p>CTAS is used across Canada and adapted internationally. SRCA's adoption aligns Saudi prehospital EMS with global best practices, enabling benchmarking against international EMS systems.</p>
+  </div>
+
+  <div class="mob-beyond">
+    <div class="mob-beyond-icon">📱</div>
+    <h4>Digital Integration (e-PCR)</h4>
+    <p>CTAS is fully integrated into the SRCA electronic Patient Care Report. Both mandatory scores, all modifiers applied, and the presenting complaint are captured digitally for audit and quality assurance.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 14 — DECEPTIONS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="deception">
+  <span class="mob-section-icon">🚫</span>
+  <div class="mob-section-title">Clinical Deceptions in CTAS</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#e67e22,#c0392b);"></div>
+
+  <div style="background:#fff3cd;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.83rem;color:#856404;line-height:1.65;border-left:4px solid #f0ad4e;">
+    <strong>⚠️ Clinical deceptions</strong> are presentations that appear stable or benign but conceal life-threatening conditions. Recognizing these patterns is the mark of an experienced paramedic.
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>🎭 The "Looks Fine" Deception</h4>
+    <p>A patient who appears well-dressed, calm, and communicative can still be CTAS 1 or 2. Appearance is not acuity. A compensating trauma patient may look fine until sudden cardiovascular collapse.</p>
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>💊 The Normal Vitals Fallacy</h4>
+    <p>Normal vital signs do NOT exclude serious illness. Young, fit patients can maintain normal vitals until 30–40% blood volume loss. High-energy MOI mandates CTAS 2 <strong>regardless of vital signs</strong>.</p>
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>👶 The Quiet Child</h4>
+    <p>A quiet, unresponsive child is not calm — it is critically ill. Children compensate brilliantly until sudden decompensation. Silence in a sick child is a <strong>red flag emergency sign</strong>.</p>
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>🧓 The Elderly Patient Deception</h4>
+    <p>Elderly patients on beta-blockers may not mount a tachycardia in shock. Baseline hypertension means a "normal" BP of 120/80 may represent severe hypotension for that patient. Always compare to their baseline.</p>
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>🩺 The "Just Anxiety" Trap</h4>
+    <p>Anxiety is a diagnosis of exclusion. Tachycardia, dyspnoea, and chest tightness must be fully evaluated before attributing to anxiety. PE, ACS, and pneumothorax all mimic anxiety presentations.</p>
+  </div>
+
+  <div class="mob-danger-card">
+    <h4>🔄 The Repeat Caller Bias</h4>
+    <p>Familiarity breeds complacency. A patient you have seen 10 times for "the same complaint" can present their 11th call as a CTAS 1. <strong>Anchor bias kills.</strong> Begin every assessment fresh.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 15 — PITFALLS
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="pitfalls">
+  <span class="mob-section-icon">🔍</span>
+  <div class="mob-section-title">Common CTAS Pitfalls</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#f39c12,#c0392b);"></div>
+
+  <div class="mob-warn-card">
+    <h4>1️⃣ Skipping the Full 4-Step Process</h4>
+    <p>Going directly from Quick Look to a CTAS level without completing the complaint → first order → second order process leads to systematic under-triage.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>2️⃣ Not Documenting Both CTAS Scores</h4>
+    <p>Both CTAS #1 (on arrival) and CTAS #2 (at departure/after intervention) are <strong>mandatory</strong> on the E-PCR. Missing either score is a documentation failure and a protocol violation.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>3️⃣ Allowing Prejudice to Influence CTAS</h4>
+    <p>Age, gender, ethnicity, socioeconomic status, or past behaviour must <strong>never</strong> influence CTAS assignment. CTAS is an objective clinical tool — not a social judgment. Prejudice increases patient risk.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>4️⃣ Using Quick Look for CTAS 2–5</h4>
+    <p>Quick Look can <strong>only</strong> assign CTAS Level 1. For CTAS 2–5, the full 4-step process is mandatory — no shortcuts.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>5️⃣ Incorrect Pediatric Vital Sign Interpretation</h4>
+    <p>Using adult vital sign norms for children leads to under-triage. A heart rate of 130 is normal for a toddler but alarming in an adult. <strong>Always use age-specific pediatric norms</strong> for patients under 14.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>6️⃣ Failing to Communicate CTAS to Receiving ED</h4>
+    <p>The CTAS level must be <strong>communicated to the receiving institution</strong> — not just documented on the E-PCR. The ED needs this information to allocate resources before the patient arrives.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>7️⃣ Ignoring Temperature as a Modifier</h4>
+    <p>Temperature is a first order modifier. When a thermometer is available, temperature <strong>must</strong> be assessed — especially in pediatric patients and suspected sepsis.</p>
+  </div>
+
+  <div class="mob-warn-card">
+    <h4>8️⃣ Retroactively Changing CTAS #1</h4>
+    <p>After a VSA patient is resuscitated, changing CTAS #1 to reflect the improved state is <strong>explicitly prohibited</strong>. Rule #3: VSA patients must remain CTAS 1 permanently.</p>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 16 — PEARLS OF WISDOM
+══════════════════════════════════════════════ -->
+<div class="mob-divider"></div>
+<div class="mob-section" id="pearls" style="background:linear-gradient(135deg,#f8f4ff 0%,#fff8f0 50%,#f0f8ff 100%);">
+  <span class="mob-section-icon">💎</span>
+  <div class="mob-section-title">Pearls of Wisdom</div>
+  <div class="mob-section-line" style="background:linear-gradient(90deg,#8e44ad,#e67e22,#2980b9);"></div>
+
+  <div class="mob-pearl" style="border-top:5px solid #e74c3c;">
+    <div class="mob-pearl-icon">🚨</div>
+    <h4>CTAS 1 Waits for No One</h4>
+    <p>When Quick Look reveals a CTAS 1 patient, every second of delay is a second of preventable harm. The 4-step process is bypassed — immediate intervention is the only correct response. <strong>Act first. Document after.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #e67e22;">
+    <div class="mob-pearl-icon">🎭</div>
+    <h4>The Patient Who Looks Fine</h4>
+    <p>A well-dressed, calm, communicative patient can still be CTAS 2. Appearance is not acuity. The compensating trauma patient looks fine until they don't. <strong>Trust the mechanism. Trust the modifiers. Never trust appearance alone.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #f1c40f;">
+    <div class="mob-pearl-icon">📊</div>
+    <h4>Normal Vitals Are Not Normal Enough</h4>
+    <p>Normal vital signs do not exclude serious illness. Young, fit patients can maintain normal vitals until 30–40% blood volume loss. <strong>High-energy MOI mandates CTAS 2 regardless of vital signs.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #27ae60;">
+    <div class="mob-pearl-icon">👶</div>
+    <h4>The Quiet Child Is Not a Calm Child</h4>
+    <p>Children compensate brilliantly until they suddenly decompensate. A quiet, unresponsive child is critically ill. <strong>Silence in a sick child is a red flag, not reassurance.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #2980b9;">
+    <div class="mob-pearl-icon">⚖️</div>
+    <h4>CTAS Is Not a Judgment — It Is a Measurement</h4>
+    <p>CTAS must be applied with the same objectivity as a blood pressure reading. Age, appearance, behaviour, or social status must never influence the level. <strong>Prejudice is a clinical error.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #8e44ad;">
+    <div class="mob-pearl-icon">🔄</div>
+    <h4>CTAS Is Dynamic — Reassess Always</h4>
+    <p>A CTAS 3 patient can become CTAS 1 in minutes. The second CTAS score exists for exactly this reason. <strong>Never assume the first score is the final score.</strong> Reassess. Reassess. Reassess.</p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #16a085;">
+    <div class="mob-pearl-icon">📝</div>
+    <h4>If It Isn't Documented, It Didn't Happen</h4>
+    <p>The E-PCR is your clinical record, your legal protection, and the hospital's first window into your patient. Both CTAS scores are mandatory. Every modifier applied must be documented. <strong>Documentation is clinical care.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #c0392b;">
+    <div class="mob-pearl-icon">🔁</div>
+    <h4>Every Patient Is a New Story</h4>
+    <p>Familiarity is the enemy of accuracy. The patient you have seen 10 times before can present their 11th call as a CTAS 1. <strong>Anchor bias kills.</strong> Begin every assessment with fresh eyes.</p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #2c3e50;">
+    <div class="mob-pearl-icon">📚</div>
+    <h4>Document Everything — Always</h4>
+    <p>The E-PCR is not bureaucracy — it is your clinical record and legal protection. Both CTAS scores are mandatory. <strong>If it isn't written, it didn't happen.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #1a5276;">
+    <div class="mob-pearl-icon">🌟</div>
+    <h4>CTAS Is a Language — Speak It Fluently</h4>
+    <p>When you say "CTAS 2" to the receiving ED, you communicate urgency, physiology, and resource need in a single number. <strong>Master CTAS and you master the language of prehospital urgency.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #8e44ad;">
+    <div class="mob-pearl-icon">💜</div>
+    <h4>Children Are Not Small Adults</h4>
+    <p>Pediatric CTAS requires age-specific vital sign norms, the PAT, and age-appropriate pain scales. <strong>Apply pediatric thresholds — never adult norms — to children under 14.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #e67e22;">
+    <div class="mob-pearl-icon">🎯</div>
+    <h4>MOI Is a Modifier — Not a Diagnosis</h4>
+    <p>High-energy MOI mandates CTAS 2 even if the patient is walking and talking. The body compensates. Internal injuries are invisible. <strong>"Until proven otherwise" is the rule.</strong></p>
+  </div>
+
+  <div class="mob-pearl" style="border-top:5px solid #27ae60;">
+    <div class="mob-pearl-icon">⚡</div>
+    <h4>Speed and Accuracy Are Not Opposites</h4>
+    <p>The 4-step CTAS process is designed to be rapid and systematic simultaneously. With practice, it becomes second nature. <strong>A well-trained paramedic assigns CTAS accurately in under 60 seconds.</strong></p>
+  </div>
+
+  <div class="mob-quote">
+    <p>"In prehospital medicine, the paramedic who masters CTAS does not merely classify patients — they protect them. Every correct CTAS level is an act of advocacy for the patient who cannot yet speak for themselves in the emergency department."</p>
+    <div class="mob-quote-attr">— Prehospital CTAS · Pearls of Wisdom · Dr. Metwalley Amin Helwa</div>
+  </div>
+
+  <div class="mob-copyright"><p>© Metwalley Amin Helwa · SRCA Prehospital CTAS · All Rights Reserved</p></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     BOTTOM PADDING + FOOTER
+══════════════════════════════════════════════ -->
+<div class="mob-bottom-pad"></div>
+<div style="background:var(--navy);padding:20px 16px;text-align:center;">
+  <div style="font-family:'Montserrat',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase;line-height:1.8;">
+    Prehospital CTAS · Saudi Red Crescent Authority<br>
+    <span style="color:rgba(255,255,255,0.3);font-size:0.65rem;">© Metwalley Amin Helwa · All Rights Reserved · Designed by Metwalley Amin Helwa</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STICKY BOTTOM BAR
+══════════════════════════════════════════════ -->
+<div class="mob-sticky-bar">
+  <button class="mob-btn-calc" onclick="scrollToTop()">▶ Top</button>
+  <button class="mob-btn-report" onclick="scrollToSection('overview')">📋 Overview</button>
+  <button class="mob-btn-share" onclick="shareLink()">💬 Share</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+function openDrawer(){
+  document.getElementById('mobDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+function scrollToTop(){
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function scrollToSection(id){
+  var el=document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth'});}
+}
+function shareLink(){
+  if(navigator.share){
+    navigator.share({
+      title:'Prehospital CTAS — Dr. Metwalley',
+      text:'SRCA Prehospital CTAS Lecture by Dr. Metwalley Amin Helwa',
+      url:window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      alert('Link copied to clipboard!');
+    });
+  }
+}
+
+// Smooth scroll for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+  anchor.addEventListener('click',function(e){
+    e.preventDefault();
+    var target=document.querySelector(this.getAttribute('href'));
+    if(target){
+      var offset=60;
+      var top=target.getBoundingClientRect().top+window.pageYOffset-offset;
+      window.scrollTo({top:top,behavior:'smooth'});
+    }
+  });
+});
+
+// Dev tools protection
+(function(){
+  var th=160;
+  setInterval(function(){
+    if(window.outerWidth-window.innerWidth>th||window.outerHeight-window.innerHeight>th){
+      document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#1a1a2e;color:#e74c3c;font-family:Montserrat,sans-serif;font-size:1.5rem;font-weight:900;text-align:center;padding:20px;">ACCESS DENIED<br><span style="font-size:0.9rem;color:rgba(255,255,255,0.5);display:block;margin-top:12px;">© Metwalley Amin Helwa</span></div>';
+    }
+  },1000);
+})();
+</script>
+</body>
+</html>
