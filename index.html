@@ -913,6 +913,117 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 
 }
 
+
+/* ===== CTAS SEVERITY ARROW ===== */
+.ctas-severity-arrow-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 18px;
+  position: relative;
+}
+.ctas-severity-arrow-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 54px;
+  height: 250px;
+  flex-shrink: 0;
+  position: relative;
+  animation: ctas-arrow-float 3s ease-in-out infinite, ctas-arrow-shake 0.18s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 14px rgba(231,76,60,0.7)) drop-shadow(0 0 28px rgba(41,128,185,0.5));
+}
+@keyframes ctas-arrow-float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes ctas-arrow-shake {
+  0%   { transform: translateY(var(--float-y, 0)) rotate(-1.5deg); }
+  100% { transform: translateY(var(--float-y, 0)) rotate(1.5deg); }
+}
+.ctas-arrow-svg {
+  width: 54px;
+  height: 100%;
+  flex: 1;
+  display: block;
+  overflow: visible;
+}
+.ctas-arrow-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  padding: 6px 0;
+}
+.ctas-arrow-label.top-label {
+  color: #e74c3c;
+  text-shadow: 0 0 8px rgba(231,76,60,0.8);
+}
+.ctas-arrow-label.bot-label {
+  color: #2980b9;
+  text-shadow: 0 0 8px rgba(41,128,185,0.8);
+}
+.ctas-levels-with-arrow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+.ctas-levels-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ctas-level-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.18);
+  transition: transform 0.2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.ctas-level-row:hover { transform: scale(1.02); }
+.ctas-level-row .clr-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+  min-width: 32px;
+  text-align: center;
+}
+.ctas-level-row .clr-name { flex: 1; }
+.ctas-level-row .clr-time {
+  font-size: 0.72rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.clr-1 { background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); color: #fff; box-shadow: 0 4px 18px rgba(231,76,60,0.45); }
+.clr-2 { background: linear-gradient(90deg, #e67e22 0%, #d35400 100%); color: #fff; box-shadow: 0 4px 18px rgba(230,126,34,0.45); }
+.clr-3 { background: linear-gradient(90deg, #f1c40f 0%, #e6b800 100%); color: #333; box-shadow: 0 4px 18px rgba(241,196,15,0.45); }
+.clr-4 { background: linear-gradient(90deg, #27ae60 0%, #1e8449 100%); color: #fff; box-shadow: 0 4px 18px rgba(39,174,96,0.45); }
+.clr-5 { background: linear-gradient(90deg, #2980b9 0%, #1a5276 100%); color: #fff; box-shadow: 0 4px 18px rgba(41,128,185,0.45); }
+
+@media (max-width: 600px) {
+  .ctas-severity-arrow-outer { width: 38px; height: 200px; }
+  .ctas-arrow-svg { width: 38px; }
+  .ctas-level-row { padding: 8px 12px; font-size: 0.82rem; }
+  .ctas-level-row .clr-num { font-size: 1.2rem; }
+}
+
 </style>
 </head>
 <body>
@@ -1299,6 +1410,52 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
   <div class="section-float-icon"><span class="anim-bounce">&#127937;</span></div>
   <h2 class="section-title reveal">The Five CTAS Levels</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e74c3c, #e67e22, #f1c40f, #27ae60, #2980b9);"></div>
+  <!-- CTAS SEVERITY ARROW + OVAL ROWS -->
+  <div class="ctas-levels-with-arrow reveal">
+    <!-- Vertical Gradient Arrow -->
+    <div class="ctas-severity-arrow-outer" aria-hidden="true">
+      <span class="ctas-arrow-label top-label">Most Severe</span>
+      <svg class="ctas-arrow-svg" viewBox="0 0 54 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="ctasArrowGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#e74c3c"/>
+            <stop offset="25%"  stop-color="#e67e22"/>
+            <stop offset="50%"  stop-color="#f1c40f"/>
+            <stop offset="75%"  stop-color="#27ae60"/>
+            <stop offset="100%" stop-color="#2980b9"/>
+          </linearGradient>
+          <filter id="ctasArrowGlow" x="-60%" y="-10%" width="220%" height="120%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Arrow shaft -->
+        <rect x="20" y="60" width="14" height="330" rx="7" fill="url(#ctasArrowGrad)" filter="url(#ctasArrowGlow)" opacity="0.95"/>
+        <!-- Arrow head pointing UP -->
+        <polygon points="27,4 6,68 48,68" fill="url(#ctasArrowGrad)" filter="url(#ctasArrowGlow)"/>
+        <!-- Glow halo on arrowhead -->
+        <polygon points="27,4 6,68 48,68" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.5"/>
+        <!-- Level markers on shaft -->
+        <circle cx="27" cy="90"  r="6" fill="#e74c3c" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="27" cy="162" r="6" fill="#e67e22" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="27" cy="234" r="6" fill="#f1c40f" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="27" cy="306" r="6" fill="#27ae60" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="27" cy="378" r="6" fill="#2980b9" stroke="#fff" stroke-width="1.5"/>
+      </svg>
+      <span class="ctas-arrow-label bot-label">Least Severe</span>
+    </div>
+    <!-- CTAS Level Oval Rows -->
+    <div class="ctas-levels-stack">
+      <div class="ctas-level-row clr-1"><span class="clr-num">1</span><span class="clr-name">Resuscitation</span><span class="clr-time">&#9203; Immediate — 0 min</span></div>
+      <div class="ctas-level-row clr-2"><span class="clr-num">2</span><span class="clr-name">Emergent</span><span class="clr-time">&#9203; Very Urgent — 15 min</span></div>
+      <div class="ctas-level-row clr-3"><span class="clr-num">3</span><span class="clr-name">Urgent</span><span class="clr-time">&#9203; Urgent — 30 min</span></div>
+      <div class="ctas-level-row clr-4"><span class="clr-num">4</span><span class="clr-name">Less-Urgent</span><span class="clr-time">&#9203; Less Urgent — 60 min</span></div>
+      <div class="ctas-level-row clr-5"><span class="clr-num">5</span><span class="clr-name">Non-Urgent</span><span class="clr-time">&#9203; Non-Urgent — 120 min</span></div>
+    </div>
+  </div>
+
+  <div style="height:30px;"></div>
+
   <div class="levels-grid">
 
     <div class="level-card lc1 reveal" style="animation-delay:0.05s">
@@ -2767,6 +2924,22 @@ document.addEventListener('selectstart',function(e){if(e.target.tagName==='INPUT
 (function(){var th=160;setInterval(function(){if(window.outerWidth-window.innerWidth>th||window.outerHeight-window.innerHeight>th){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#1a1a2e;color:#e74c3c;font-family:Montserrat,sans-serif;font-size:2rem;font-weight:900;text-align:center;padding:20px;">ACCESS DENIED<br/><span style="font-size:1rem;color:rgba(255,255,255,0.5);display:block;margin-top:12px;">© Metwalley Amin Helwa</span></div>';}},1000);})();
 
 calcCTAS();
+
+// Sync CTAS severity arrow height to oval stack
+(function syncArrowHeight(){
+  function doSync(){
+    var stack=document.querySelector('.ctas-levels-stack');
+    var arrow=document.querySelector('.ctas-severity-arrow-outer');
+    if(stack&&arrow){
+      var h=stack.getBoundingClientRect().height;
+      if(h>0){arrow.style.height=h+'px';}
+    }
+  }
+  doSync();
+  window.addEventListener('resize',doSync);
+  setTimeout(doSync,400);
+  setTimeout(doSync,1200);
+})();
 </script>
 
   </div>
