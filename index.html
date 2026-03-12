@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Prehospital CTAS – Educational Lecture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -85,6 +85,7 @@ body {
 @keyframes ecgDraw { to { stroke-dashoffset: 0; } }
 
 /* ===== NAV TABS ===== */
+/* Desktop: full wrap grid */
 .nav-tabs {
   position: sticky; top: 0; z-index: 100;
   display: flex; justify-content: center; flex-wrap: wrap; gap: 6px;
@@ -99,14 +100,82 @@ body {
   font-size: 0.82rem; font-weight: 700; letter-spacing: 0.5px;
   cursor: pointer; border: 1.5px solid var(--border);
   background: var(--bg); color: var(--text2);
-  transition: all 0.25s; text-decoration: none;
+  transition: all 0.25s; text-decoration: none; white-space: nowrap;
 }
-.nav-tab:hover { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+.nav-tab:hover, .nav-tab.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
 .nav-tab.l1:hover { background: var(--l1b); border-color: var(--l1b); color: #fff; }
 .nav-tab.l2:hover { background: var(--l2b); border-color: var(--l2b); color: #fff; }
 .nav-tab.l3:hover { background: var(--l3b); border-color: var(--l3b); color: #fff; }
 .nav-tab.l4:hover { background: var(--l4b); border-color: var(--l4b); color: #fff; }
 .nav-tab.l5:hover { background: var(--l5b); border-color: var(--l5b); color: #fff; }
+
+/* Hamburger toggle — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  position: sticky; top: 0; z-index: 101;
+  background: #fff;
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 2px 12px var(--shadow);
+  padding: 10px 16px;
+  align-items: center; justify-content: space-between;
+}
+.nav-hamburger-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem; font-weight: 800; color: var(--navy);
+  letter-spacing: 0.5px;
+}
+.nav-hamburger-btn {
+  background: var(--navy); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 8px 14px; font-size: 1.1rem;
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+}
+.nav-hamburger-btn span { font-size: 0.72rem; letter-spacing: 0.5px; }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.nav-drawer.open { display: flex; align-items: flex-start; justify-content: center; padding-top: 60px; }
+.nav-drawer-inner {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 16px;
+  width: 92%; max-width: 420px;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.nav-drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.nav-drawer-header h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem; font-weight: 900; color: var(--navy); margin: 0;
+}
+.nav-drawer-close {
+  background: #f0f0f0; border: none; border-radius: 8px;
+  width: 36px; height: 36px; font-size: 1.2rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.nav-drawer .nav-tab {
+  display: block; width: 100%; text-align: left;
+  padding: 12px 16px; font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .nav-tabs { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+}
 
 /* ===== SECTION WRAPPER ===== */
 .section { position: relative; padding: 60px 20px; max-width: 1300px; margin: 0 auto; }
@@ -617,13 +686,13 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 .report-table td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.76rem;letter-spacing:0.5px;color:var(--text3);width:36%;}
 
 /* LIVE BUBBLE */
-.live-ctas{position:fixed;bottom:80px;right:16px;z-index:150;}
+.live-ctas{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom, 0px));right:max(16px, env(safe-area-inset-right, 16px));z-index:149;}
 .ctas-bubble{background:var(--navy);color:#fff;border-radius:50px;padding:10px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);font-family:'Montserrat',sans-serif;transition:all 0.4s;cursor:pointer;}
 .ctas-bubble-level{font-size:1.3rem;font-weight:900;line-height:1;}
 .ctas-bubble-text{font-size:0.68rem;font-weight:700;letter-spacing:0.5px;opacity:0.8;}
 
 /* ACTION BAR */
-.action-bar{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(255,255,255,0.97);border-top:2px solid var(--border);padding:12px 20px;display:flex;gap:10px;justify-content:center;box-shadow:0 -4px 20px rgba(0,0,0,0.1);backdrop-filter:blur(10px);}
+.action-bar{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(255,255,255,0.97);border-top:2px solid var(--border);padding:12px 20px calc(12px + env(safe-area-inset-bottom, 0px)) 20px;display:flex;gap:10px;justify-content:center;box-shadow:0 -4px 20px rgba(0,0,0,0.1);backdrop-filter:blur(10px);}
 .btn-primary{flex:1;max-width:220px;padding:13px 20px;border-radius:10px;border:none;font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:800;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;background:linear-gradient(135deg,var(--navy),var(--navy3));color:#fff;box-shadow:0 4px 14px rgba(26,26,46,0.3);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,26,46,0.4);}
 .btn-report{flex:1;max-width:220px;padding:13px 20px;border-radius:10px;border:none;font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:800;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;background:linear-gradient(135deg,#1e8449,#27ae60);color:#fff;box-shadow:0 4px 14px rgba(30,132,73,0.3);}
@@ -632,7 +701,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 .btn-share:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.4);}
 
 /* COPYRIGHT */
-.copyright-bar{text-align:center;padding:14px 20px;background:var(--navy);color:rgba(255,255,255,0.35);font-size:0.7rem;letter-spacing:1px;margin-bottom:70px;}
+.copyright-bar{text-align:center;padding:14px 20px;background:var(--navy);color:rgba(255,255,255,0.35);font-size:0.7rem;letter-spacing:1px;margin-bottom:calc(70px + env(safe-area-inset-bottom, 0px));}
 .copyright-bar strong{color:rgba(255,255,255,0.55);}
 
 /* HIDDEN */
@@ -804,6 +873,43 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
     </svg>
   </div>
 </header>
+
+<!-- ===== MOBILE HAMBURGER NAV ===== -->
+<div class="nav-hamburger" id="navHamburger">
+  <span class="nav-hamburger-title">&#128218; Prehospital CTAS &mdash; Sections</span>
+  <button class="nav-hamburger-btn" onclick="document.getElementById('navDrawer').classList.add('open')">
+    &#9776; <span>MENU</span>
+  </button>
+</div>
+
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="navDrawer" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="nav-drawer-inner">
+    <div class="nav-drawer-header">
+      <h3>&#128218; Navigate Sections</h3>
+      <button class="nav-drawer-close" onclick="document.getElementById('navDrawer').classList.remove('open')">&#10005;</button>
+    </div>
+    <a class="nav-tab" href="#preface" onclick="document.getElementById('navDrawer').classList.remove('open')">&#127381; Preface</a>
+    <a class="nav-tab" href="#overview" onclick="document.getElementById('navDrawer').classList.remove('open')">Overview</a>
+    <a class="nav-tab" href="#process" onclick="document.getElementById('navDrawer').classList.remove('open')">CTAS Process</a>
+    <a class="nav-tab l1" href="#levels" onclick="document.getElementById('navDrawer').classList.remove('open')">5 Levels</a>
+    <a class="nav-tab" href="#rules" onclick="document.getElementById('navDrawer').classList.remove('open')">Rules</a>
+    <a class="nav-tab" href="#modifiers" onclick="document.getElementById('navDrawer').classList.remove('open')">Modifiers</a>
+    <a class="nav-tab" href="#adult-table" onclick="document.getElementById('navDrawer').classList.remove('open')">Adult Cases</a>
+    <a class="nav-tab" href="#pediatric" onclick="document.getElementById('navDrawer').classList.remove('open')">Pediatric</a>
+    <a class="nav-tab" href="#ped-table" onclick="document.getElementById('navDrawer').classList.remove('open')">Ped Cases</a>
+    <a class="nav-tab" href="#ctas-guide" onclick="document.getElementById('navDrawer').classList.remove('open')">&#127919; CTAS Guide</a>
+    <a class="nav-tab" href="#analogy-section" onclick="document.getElementById('navDrawer').classList.remove('open')">&#127758; Analogies</a>
+    <a class="nav-tab" href="#when-ctas" onclick="document.getElementById('navDrawer').classList.remove('open')">&#9989; When/Not</a>
+    <a class="nav-tab" href="#medical-director" onclick="document.getElementById('navDrawer').classList.remove('open')">&#128222; Med Director</a>
+    <a class="nav-tab" href="#comparison" onclick="document.getElementById('navDrawer').classList.remove('open')">&#9878;&#65039; Comparison</a>
+    <a class="nav-tab" href="#beyond-ctas" onclick="document.getElementById('navDrawer').classList.remove('open')">&#127919; Beyond CTAS</a>
+    <a class="nav-tab" href="#deception" onclick="document.getElementById('navDrawer').classList.remove('open')">&#128683; Deceptions</a>
+    <a class="nav-tab" href="#pitfalls" onclick="document.getElementById('navDrawer').classList.remove('open')">&#128270; Pitfalls</a>
+    <a class="nav-tab" href="#modifiers-detail" onclick="document.getElementById('navDrawer').classList.remove('open')">&#128295; Modifiers Detail</a>
+    <a class="nav-tab" href="#full-algorithm" onclick="document.getElementById('navDrawer').classList.remove('open')">&#127968; Algorithm</a>
+  </div>
+</div>
 
 <!-- ===== NAV TABS ===== -->
 <nav class="nav-tabs">
