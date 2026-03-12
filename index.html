@@ -723,6 +723,81 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 }
 
 
+/* ===== FLOATING / GLOWING / SWINGING ANIMATED ICONS ===== */
+@keyframes float-up-down {
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  25%{transform:translateY(-18px) rotate(-4deg);}
+  75%{transform:translateY(-8px) rotate(4deg);}
+}
+@keyframes swing-pendulum {
+  0%,100%{transform:rotate(-18deg);}
+  50%{transform:rotate(18deg);}
+}
+@keyframes glow-pulse {
+  0%,100%{filter:drop-shadow(0 0 8px currentColor) drop-shadow(0 0 20px currentColor);opacity:0.9;}
+  50%{filter:drop-shadow(0 0 22px currentColor) drop-shadow(0 0 45px currentColor);opacity:1;}
+}
+@keyframes spin-slow {
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+@keyframes bounce-icon {
+  0%,100%{transform:translateY(0) scale(1);}
+  40%{transform:translateY(-22px) scale(1.12);}
+  60%{transform:translateY(-14px) scale(1.06);}
+}
+@keyframes heartbeat {
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(231,76,60,0.7));}
+  14%{transform:scale(1.25);filter:drop-shadow(0 0 20px rgba(231,76,60,1));}
+  28%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(231,76,60,0.7));}
+  42%{transform:scale(1.18);filter:drop-shadow(0 0 16px rgba(231,76,60,0.9));}
+  70%{transform:scale(1);}
+}
+@keyframes flicker-glow {
+  0%,100%{opacity:1;filter:drop-shadow(0 0 10px gold) drop-shadow(0 0 25px orange);}
+  33%{opacity:0.75;filter:drop-shadow(0 0 5px gold);}
+  66%{opacity:0.9;filter:drop-shadow(0 0 18px orange) drop-shadow(0 0 35px gold);}
+}
+@keyframes wave-float {
+  0%{transform:translateX(0) translateY(0) rotate(0deg);}
+  25%{transform:translateX(12px) translateY(-15px) rotate(8deg);}
+  50%{transform:translateX(0) translateY(-22px) rotate(0deg);}
+  75%{transform:translateX(-12px) translateY(-10px) rotate(-8deg);}
+  100%{transform:translateX(0) translateY(0) rotate(0deg);}
+}
+@keyframes orbit {
+  from{transform:rotate(0deg) translateX(14px) rotate(0deg);}
+  to{transform:rotate(360deg) translateX(14px) rotate(-360deg);}
+}
+.anim-float{animation:float-up-down 4s ease-in-out infinite;display:inline-block;}
+.anim-float-slow{animation:float-up-down 6s ease-in-out infinite;display:inline-block;}
+.anim-swing{animation:swing-pendulum 2.5s ease-in-out infinite;display:inline-block;transform-origin:top center;}
+.anim-swing-slow{animation:swing-pendulum 4s ease-in-out infinite;display:inline-block;transform-origin:top center;}
+.anim-glow-red{animation:glow-pulse 2s ease-in-out infinite;color:#e74c3c;display:inline-block;}
+.anim-glow-blue{animation:glow-pulse 2.5s ease-in-out infinite;color:#2980b9;display:inline-block;}
+.anim-glow-green{animation:glow-pulse 3s ease-in-out infinite;color:#27ae60;display:inline-block;}
+.anim-glow-gold{animation:flicker-glow 3s ease-in-out infinite;display:inline-block;}
+.anim-glow-purple{animation:glow-pulse 2.8s ease-in-out infinite;color:#8e44ad;display:inline-block;}
+.anim-heartbeat{animation:heartbeat 1.6s ease-in-out infinite;display:inline-block;}
+.anim-bounce{animation:bounce-icon 2.2s ease-in-out infinite;display:inline-block;}
+.anim-spin{animation:spin-slow 8s linear infinite;display:inline-block;}
+.anim-wave{animation:wave-float 5s ease-in-out infinite;display:inline-block;}
+.section-float-icon{
+  text-align:center;
+  font-size:clamp(3rem,6vw,5rem);
+  margin-bottom:18px;
+  line-height:1;
+  position:relative;
+  z-index:2;
+}
+.hero-float-icon{
+  font-size:clamp(4rem,8vw,7rem);
+  display:block;
+  margin:0 auto 20px;
+  position:relative;
+  z-index:2;
+}
+
 </style>
 </head>
 <body>
@@ -940,6 +1015,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="overview" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:20px;left:20px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-heartbeat">&#10084;&#65039;</span></div>
   <h2 class="section-title reveal">What is Prehospital CTAS?</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e74c3c, #2980b9);"></div>
   <div class="rules-grid">
@@ -986,6 +1062,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="process" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:30px;left:60px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-float">&#128203;</span></div>
   <h2 class="section-title reveal">CTAS Assessment Process</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e67e22, #f1c40f);"></div>
 
@@ -1094,6 +1171,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="levels" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:50px;right:20px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-bounce">&#127937;</span></div>
   <h2 class="section-title reveal">The Five CTAS Levels</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e74c3c, #e67e22, #f1c40f, #27ae60, #2980b9);"></div>
   <div class="levels-grid">
@@ -1175,6 +1253,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="rules" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:60px;right:50px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-swing">&#9878;&#65039;</span></div>
   <h2 class="section-title reveal">Rules for Assigning CTAS Levels</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e67e22, #b7950b);"></div>
   <div class="rules-grid">
@@ -1263,6 +1342,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="modifiers" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:30px;left:20px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-float-slow">&#128295;</span></div>
   <h2 class="section-title reveal">CTAS Modifiers</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #8e44ad, #2980b9);"></div>
 
@@ -1403,6 +1483,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="adult-table" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:40px;left:40px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-glow-blue">&#128100;</span></div>
   <h2 class="section-title reveal">Adult CTAS — Case Examples by Category</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #e74c3c, #e67e22);"></div>
 
@@ -1512,6 +1593,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <section class="section" id="pediatric" style="position:relative;overflow:hidden;">
 <div class="srca-wm" style="top:60px;right:20px;" aria-hidden="true"></div>
 
+  <div class="section-float-icon"><span class="anim-float">&#128118;</span></div>
   <h2 class="section-title reveal">Pediatric CTAS</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #27ae60, #2980b9);"></div>
 
@@ -1652,6 +1734,7 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 <div class="srca-wm" style="top:30px;left:50px;" aria-hidden="true"></div>
 
 <section class="section" id="ped-table" style="position:relative;overflow:hidden;">
+  <div class="section-float-icon"><span class="anim-bounce">&#128118;</span></div>
   <h2 class="section-title reveal">Pediatric CTAS — Case Examples by Category</h2>
   <div class="section-line reveal" style="background: linear-gradient(90deg, #27ae60, #2980b9);"></div>
 
@@ -2574,6 +2657,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-wave">&#127758;</span></div>
     &#127758; CTAS Dynamicity — Real-Life Analogies
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#e74c3c,#8e44ad);margin:0 auto 16px;border-radius:2px;"></div>
@@ -2694,6 +2778,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-glow-green">&#9989;</span></div>
     &#9989; When to Use CTAS — and When NOT to Use It
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#27ae60,#e74c3c);margin:0 auto 40px;border-radius:2px;"></div>
@@ -2840,6 +2925,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-swing-slow">&#128222;</span></div>
     &#128222; When to Call the Medical Director During CTAS
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#2980b9,#8e44ad);margin:0 auto 40px;border-radius:2px;"></div>
@@ -2949,6 +3035,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-spin">&#9878;&#65039;</span></div>
     &#9878;&#65039; CTAS vs START Triage vs MPDS — System Comparison
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#1a3a5c,#27ae60,#8e44ad);margin:0 auto 16px;border-radius:2px;"></div>
@@ -3079,6 +3166,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-wave">&#127919;</span></div>
     &#127919; What in Medical Practice Goes Beyond CTAS?
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#2980b9,#27ae60);margin:0 auto 40px;border-radius:2px;"></div>
@@ -3156,6 +3244,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-swing">&#128683;</span></div>
     &#128683; What EMS &amp; Paramedics Must NOT Be Deceived By During CTAS
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#e67e22,#c0392b);margin:0 auto 40px;border-radius:2px;"></div>
@@ -3238,6 +3327,7 @@ calcCTAS();
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-float">&#128270;</span></div>
     &#128270; Most Common Pitfalls in CTAS Practice
   </h2>
   <div style="width:70px;height:4px;background:linear-gradient(90deg,#c0392b,#f39c12);margin:0 auto 40px;border-radius:2px;"></div>
@@ -4620,6 +4710,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 <section style="max-width:1400px;margin:0 auto;padding:40px 0 0;">
   <div style="text-align:center;padding:0 20px 10px;">
     <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#1a1a2e;margin-bottom:10px;">
+      <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-float-slow">&#127968;</span></div>
       &#127968; Full CTAS Algorithm — Complete Clinical Decision Pathway
     </h2>
     <div style="width:70px;height:4px;background:linear-gradient(90deg,#1a3a5c,#e74c3c);margin:0 auto 8px;border-radius:2px;"></div>
@@ -5306,6 +5397,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 <section class="section reveal" style="max-width:1300px;margin:0 auto;padding:60px 20px;">
 
   <h2 class="section-title" style="font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:10px;color:#1a1a2e;">
+    <div class="section-float-icon" style="margin-bottom:14px;"><span class="anim-glow-gold">&#128142;</span></div>
     &#128142; Pearls of Wisdom — Prehospital CTAS
   </h2>
   <p style="text-align:center;color:#4a4a6a;font-size:1rem;margin-bottom:8px;">Distilled clinical wisdom for the EMS professional in the field</p>
