@@ -1015,18 +1015,18 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 /* ── MODIFIER DETAIL CARDS ── */
 .mod-detail-section{margin-top:6px;}
 .mod-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);min-width:0;}
 .mod-detail-col-hdr{padding:13px 14px;display:flex;align-items:center;gap:10px;}
 .mod-detail-fo-hdr{background:linear-gradient(135deg,var(--fo),#f0c040);}
 .mod-detail-so-hdr{background:linear-gradient(135deg,var(--so),#9775fa);}
 .mod-detail-col-hdr svg{width:22px;height:22px;flex-shrink:0;}
 .mod-detail-col-hdr-title{font-size:0.88rem;font-weight:800;color:#fff;letter-spacing:0.5px;}
-.mod-detail-col-body{background:#fff;padding:12px 12px;}
+.mod-detail-col-body{background:#fff;padding:12px 12px;min-width:0;width:100%;}
 
 /* individual modifier items */
 .mod-mod-item{
   border-radius:10px;padding:11px 12px;margin-bottom:8px;
-  position:relative;overflow:hidden;
+  position:relative;min-width:0;
 }
 .mod-mod-item:last-child{margin-bottom:0;}
 .mod-mod-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
@@ -1061,7 +1061,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .mod-mi-ico svg{width:15px;height:15px;}
 .mod-mi-lbl{font-size:0.58rem;font-weight:700;color:#999;letter-spacing:1px;display:block;}
 .mod-mi-nm{font-size:0.75rem;font-weight:800;color:var(--navy);}
-.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;width:100%;min-width:0;word-wrap:break-word;}
+.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;width:100%;min-width:0;overflow-wrap:break-word;word-break:break-word;}
 .mod-mi-body .mod-c1{color:#c0392b;font-weight:700;}
 .mod-mi-body .mod-c2{color:#d35400;font-weight:700;}
 .mod-mi-body .mod-c3{color:#b7950b;font-weight:700;}
@@ -1801,6 +1801,23 @@ table td, table th {
 .badge, .tag, .label, .pill { font-size: clamp(0.85rem, 2.8vw, 1rem) !important; }
 input, select, textarea { font-size: 1rem !important; }
 /* ===== END MOBILE OVERRIDE ===== */
+
+/* === GPT-4.1 FIX: Prevent grid/flex text collapse to one-char-per-line === */
+.mod-detail-grid { min-width: 0; }
+.mod-detail-col { min-width: 0 !important; }
+.mod-detail-col-body { min-width: 0 !important; width: 100% !important; }
+.mod-mod-item { min-width: 0 !important; overflow: visible !important; }
+.mod-mi-head { min-width: 0; }
+.mod-mi-head > div { min-width: 0; flex: 1 1 auto; }
+.mod-mi-body { 
+  min-width: 0 !important; 
+  width: 100% !important; 
+  overflow-wrap: break-word !important; 
+  word-break: break-word !important;
+  white-space: normal !important;
+}
+/* Fix all grid items that may collapse */
+.mod-detail-grid > * { min-width: 0; }
 </style>
 </head>
 <body>
@@ -4584,18 +4601,18 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 /* ── MODIFIER DETAIL CARDS ── */
 .mod-detail-section{margin-top:6px;}
 .mod-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);min-width:0;}
 .mod-detail-col-hdr{padding:13px 14px;display:flex;align-items:center;gap:10px;}
 .mod-detail-fo-hdr{background:linear-gradient(135deg,var(--fo),#f0c040);}
 .mod-detail-so-hdr{background:linear-gradient(135deg,var(--so),#9775fa);}
 .mod-detail-col-hdr svg{width:22px;height:22px;flex-shrink:0;}
 .mod-detail-col-hdr-title{font-size:0.88rem;font-weight:800;color:#fff;letter-spacing:0.5px;}
-.mod-detail-col-body{background:#fff;padding:12px 12px;}
+.mod-detail-col-body{background:#fff;padding:12px 12px;min-width:0;width:100%;}
 
 /* individual modifier items */
 .mod-mod-item{
   border-radius:10px;padding:11px 12px;margin-bottom:8px;
-  position:relative;overflow:hidden;
+  position:relative;min-width:0;
 }
 .mod-mod-item:last-child{margin-bottom:0;}
 .mod-mod-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
@@ -4630,7 +4647,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .mod-mi-ico svg{width:15px;height:15px;}
 .mod-mi-lbl{font-size:0.58rem;font-weight:700;color:#999;letter-spacing:1px;display:block;}
 .mod-mi-nm{font-size:0.75rem;font-weight:800;color:var(--navy);}
-.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;width:100%;min-width:0;word-wrap:break-word;}
+.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;width:100%;min-width:0;overflow-wrap:break-word;word-break:break-word;}
 .mod-mi-body .mod-c1{color:#c0392b;font-weight:700;}
 .mod-mi-body .mod-c2{color:#d35400;font-weight:700;}
 .mod-mi-body .mod-c3{color:#b7950b;font-weight:700;}
