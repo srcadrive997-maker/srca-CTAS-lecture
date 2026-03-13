@@ -918,6 +918,207 @@ input,select,textarea{user-select:text;-webkit-user-select:text;}
 </head>
 <body>
 
+<!-- ===== CINEMATIC INTRO OVERLAY — REMOVE THIS BLOCK TO UNDO ===== -->
+<div id="ctas-intro-overlay" style="
+  position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99999;
+  background:#000;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;overflow:hidden;
+  font-family:'Montserrat','Segoe UI',sans-serif;
+">
+
+  <!-- Particle stars background -->
+  <canvas id="intro-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.4;"></canvas>
+
+  <!-- Red emergency pulse ring -->
+  <div id="intro-pulse" style="
+    position:absolute;width:320px;height:320px;border-radius:50%;
+    border:3px solid #e74c3c;opacity:0;
+    box-shadow:0 0 60px #e74c3c,0 0 120px rgba(231,76,60,0.4);
+    animation:introPulse 1.2s ease-out 0.5s forwards;
+  "></div>
+  <div id="intro-pulse2" style="
+    position:absolute;width:480px;height:480px;border-radius:50%;
+    border:2px solid rgba(231,76,60,0.4);opacity:0;
+    animation:introPulse 1.4s ease-out 0.8s forwards;
+  "></div>
+
+  <!-- ECG line SVG -->
+  <svg id="intro-ecg" viewBox="0 0 800 80" style="
+    position:absolute;bottom:18%;left:0;width:100%;height:80px;
+    opacity:0;animation:introFadeIn 0.6s ease 1.2s forwards;
+  ">
+    <polyline id="ecg-line" points="0,40 80,40 110,40 130,5 150,75 170,40 200,40 230,40 260,40 290,40 310,5 330,75 350,40 380,40 420,40 450,40 480,40 510,5 530,75 550,40 580,40 620,40 650,40 680,40 710,5 730,75 750,40 800,40"
+      fill="none" stroke="#e74c3c" stroke-width="2.5"
+      stroke-dasharray="1600" stroke-dashoffset="1600"
+      style="animation:ecgDraw 2s linear 1.4s forwards;"
+    />
+  </svg>
+
+  <!-- SRCA badge / logo area -->
+  <div id="intro-badge" style="
+    position:relative;z-index:2;text-align:center;
+    opacity:0;transform:scale(0.6);
+    animation:introBadgeIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.3s forwards;
+  ">
+    <!-- Star of Life -->
+    <div style="font-size:clamp(3rem,10vw,5.5rem);line-height:1;filter:drop-shadow(0 0 24px #e74c3c) drop-shadow(0 0 48px rgba(231,76,60,0.5));">✚</div>
+    <div style="
+      font-size:clamp(0.55rem,1.8vw,0.75rem);font-weight:800;letter-spacing:5px;
+      color:rgba(255,255,255,0.6);text-transform:uppercase;margin-top:6px;
+    ">Saudi Red Crescent Authority · 997</div>
+  </div>
+
+  <!-- Main title -->
+  <div id="intro-title" style="
+    position:relative;z-index:2;text-align:center;margin-top:20px;
+    opacity:0;transform:translateY(30px);
+    animation:introTitleIn 0.9s cubic-bezier(0.22,1,0.36,1) 1s forwards;
+  ">
+    <div style="
+      font-size:clamp(1.8rem,6vw,4rem);font-weight:900;letter-spacing:2px;
+      background:linear-gradient(90deg,#e74c3c 0%,#f39c12 30%,#f1c40f 50%,#2ecc71 70%,#3498db 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 0 20px rgba(231,76,60,0.6));
+      line-height:1.1;
+    ">CTAS</div>
+    <div style="
+      font-size:clamp(0.7rem,2vw,1.1rem);font-weight:600;letter-spacing:4px;
+      color:rgba(255,255,255,0.85);text-transform:uppercase;margin-top:8px;
+    ">Canadian Triage &amp; Acuity Scale</div>
+    <div style="
+      font-size:clamp(0.55rem,1.5vw,0.8rem);font-weight:400;letter-spacing:3px;
+      color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;
+    ">Prehospital Emergency Triage</div>
+  </div>
+
+  <!-- CTAS level color bar -->
+  <div id="intro-colorbar" style="
+    position:relative;z-index:2;margin-top:28px;
+    display:flex;gap:8px;opacity:0;
+    animation:introFadeIn 0.6s ease 2.2s forwards;
+  ">
+    <div style="width:clamp(28px,6vw,48px);height:8px;border-radius:4px;background:#e74c3c;box-shadow:0 0 12px #e74c3c;"></div>
+    <div style="width:clamp(28px,6vw,48px);height:8px;border-radius:4px;background:#e67e22;box-shadow:0 0 12px #e67e22;"></div>
+    <div style="width:clamp(28px,6vw,48px);height:8px;border-radius:4px;background:#f1c40f;box-shadow:0 0 12px #f1c40f;"></div>
+    <div style="width:clamp(28px,6vw,48px);height:8px;border-radius:4px;background:#27ae60;box-shadow:0 0 12px #27ae60;"></div>
+    <div style="width:clamp(28px,6vw,48px);height:8px;border-radius:4px;background:#2980b9;box-shadow:0 0 12px #2980b9;"></div>
+  </div>
+
+  <!-- Skip button -->
+  <button onclick="skipIntro()" style="
+    position:absolute;bottom:28px;right:28px;z-index:3;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);
+    color:rgba(255,255,255,0.6);font-size:0.75rem;letter-spacing:2px;
+    padding:8px 18px;border-radius:20px;cursor:pointer;
+    font-family:'Montserrat',sans-serif;text-transform:uppercase;
+    transition:all 0.3s;
+  " onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+    Skip ▶
+  </button>
+
+  <!-- Progress bar -->
+  <div style="position:absolute;bottom:0;left:0;width:100%;height:3px;background:rgba(255,255,255,0.1);">
+    <div id="intro-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#e74c3c,#f39c12,#f1c40f,#27ae60,#2980b9);transition:width 0.1s linear;"></div>
+  </div>
+
+</div>
+
+<style>
+/* ===== CINEMATIC INTRO STYLES ===== */
+@keyframes introPulse {
+  0%   { opacity:0; transform:scale(0.3); }
+  40%  { opacity:0.9; }
+  100% { opacity:0; transform:scale(2.2); }
+}
+@keyframes introBadgeIn {
+  to { opacity:1; transform:scale(1); }
+}
+@keyframes introTitleIn {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes introFadeIn {
+  to { opacity:1; }
+}
+@keyframes ecgDraw {
+  to { stroke-dashoffset:0; }
+}
+@keyframes introFadeOut {
+  0%   { opacity:1; transform:scale(1); }
+  100% { opacity:0; transform:scale(1.04); pointer-events:none; }
+}
+/* ===== END CINEMATIC INTRO STYLES ===== */
+</style>
+
+<script>
+// ===== CINEMATIC INTRO SCRIPT =====
+(function(){
+  // Particle canvas
+  var canvas = document.getElementById('intro-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+  function resizeCanvas(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  for(var i=0;i<120;i++){
+    particles.push({
+      x: Math.random()*window.innerWidth,
+      y: Math.random()*window.innerHeight,
+      r: Math.random()*1.8+0.3,
+      vx: (Math.random()-0.5)*0.4,
+      vy: (Math.random()-0.5)*0.4,
+      a: Math.random()*0.8+0.2
+    });
+  }
+  var animFrame;
+  function drawParticles(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+p.a+')';
+      ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+    });
+    animFrame = requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // Progress bar
+  var duration = 9800; // ms
+  var start = Date.now();
+  var bar = document.getElementById('intro-progress');
+  var barInterval = setInterval(function(){
+    var elapsed = Date.now()-start;
+    var pct = Math.min(100, (elapsed/duration)*100);
+    bar.style.width = pct+'%';
+    if(pct>=100) clearInterval(barInterval);
+  }, 80);
+
+  // Auto-dismiss after 10s
+  var introTimer = setTimeout(function(){ dismissIntro(); }, duration+200);
+
+  function dismissIntro(){
+    clearTimeout(introTimer);
+    clearInterval(barInterval);
+    cancelAnimationFrame(animFrame);
+    var overlay = document.getElementById('ctas-intro-overlay');
+    if(!overlay) return;
+    overlay.style.animation='introFadeOut 0.9s cubic-bezier(0.4,0,1,1) forwards';
+    setTimeout(function(){ overlay.style.display='none'; }, 900);
+  }
+
+  window.skipIntro = function(){ dismissIntro(); };
+})();
+// ===== END CINEMATIC INTRO SCRIPT =====
+</script>
+
+<!-- ===== END CINEMATIC INTRO OVERLAY ===== -->
+
 <!-- ===== PREFACE SECTION (from PowerPoint) ===== -->
 <div id="preface" style="background:linear-gradient(160deg,#fff5f5 0%,#fff8f0 18%,#fffef0 36%,#f0fff5 54%,#f0f8ff 72%,#f5f0ff 100%);position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;">
 
