@@ -182,8 +182,8 @@ body {
 
 /* Mobile breakpoint */
 @media (max-width: 768px) {
-  .nav-tabs { display: none !important; }
-  .nav-hamburger { display: flex !important; }
+  .nav-tabs { display: flex !important; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
+  .nav-hamburger { display: none !important; }
 }
 
 /* ===== SECTION WRAPPER ===== */
@@ -928,6 +928,12 @@ body { font-size: 1.05rem !important; line-height: 1.65 !important; }
 table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; padding: 10px 14px !important; }
 .badge, .tag, .label { font-size: clamp(0.78rem, 1.5vw, 0.95rem) !important; }
 /* ===== END ZOOM OVERRIDE ===== */
+
+/* Always-visible compact scrollable nav on mobile */
+@media (max-width: 768px) {
+  .nav-tabs { padding: 8px 10px !important; gap: 4px !important; }
+  .nav-tab { font-size: 0.75rem !important; padding: 5px 9px !important; white-space: nowrap !important; }
+}
 </style>
 </head>
 <body>
@@ -1194,6 +1200,17 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
         <div style="font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:700;color:#c0392b;margin-top:4px;direction:rtl;letter-spacing:0.5px;">قسم التحكم الطبي بالمنطقة الشمالية</div>
       </div>
 
+    <!-- QR CODE at title level -->
+    <div style="display:flex;justify-content:center;margin-top:24px;">
+      <div style="display:inline-flex;align-items:center;gap:18px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);border:2px solid #e74c3c;border-radius:16px;padding:14px 24px;box-shadow:0 0 20px rgba(231,76,60,0.4);">
+        <img src="srca_logo_2.jpg" alt="Scan QR" style="width:72px;height:72px;border-radius:8px;background:#fff;padding:3px;flex-shrink:0;" />
+        <div style="text-align:left;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:#f39c12;font-weight:700;margin-bottom:4px;">&#128241; Scan to open on mobile</div>
+          <div style="font-family:'Open Sans',sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.85);font-weight:600;">Full interactive lecture on your device</div>
+        </div>
+      </div>
+    </div>
+
     </div>
 
     <!-- Slide 2: Introduction content -->
@@ -1401,15 +1418,6 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
     </div>
   </div>
 
-<!-- QR CODE PANEL for mobile audience -->
-<div style="position:relative;z-index:2;margin:36px auto 0;display:inline-flex;align-items:center;gap:24px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);border:3px solid #e74c3c;border-radius:20px;padding:22px 32px;box-shadow:0 0 32px rgba(231,76,60,0.5),0 0 64px rgba(41,128,185,0.3);">
-  <img src="srca_logo_2.jpg" alt="QR Code - Mobile Lecture" style="width:100px;height:100px;border-radius:8px;background:#fff;padding:4px;" />
-  <div style="text-align:left;">
-    <div style="font-family:'Montserrat',sans-serif;font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;color:#f39c12;font-weight:700;margin-bottom:6px;text-shadow:0 0 10px rgba(243,156,18,0.8);">📱 Follow on your phone</div>
-    <div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:900;color:#ffffff;margin-bottom:6px;text-shadow:0 0 16px rgba(255,255,255,0.6),0 2px 8px rgba(0,0,0,0.5);letter-spacing:1px;">Scan to open on mobile</div>
-    <div style="font-family:'Open Sans',sans-serif;font-size:1rem;color:rgba(255,255,255,0.85);font-weight:600;">Full interactive lecture on your device</div>
-  </div>
-</div>
 </section>
 
 <div class="glow-divider"></div>
@@ -2661,7 +2669,6 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
 
 <!-- ACTION BAR -->
 <div class="action-bar">
-  <button class="btn-primary" onclick="calculateCTAS()">&#9654; Calculate CTAS</button>
   <button class="btn-report" onclick="generateReport()">&#128203; Generate Report</button>
   <button class="btn-share" onclick="shareWhatsApp()">&#128172; Share Report</button>
 </div>
