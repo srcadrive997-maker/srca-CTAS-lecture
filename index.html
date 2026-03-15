@@ -947,6 +947,28 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
   white-space: normal !important;
 }
 .mod-detail-grid { min-width: 0; }
+
+/* Claude AI fix: prevent modifier text collapse on mobile */
+.mod-mi-body,
+.mod-flow-step-body,
+.mod-flow-step-text,
+.mod-flow-step-title,
+.mod-detail-col-hdr-title {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  width: 100% !important;
+}
+.mod-mod-item {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+.mod-detail-grid {
+  min-width: 0 !important;
+  width: 100% !important;
+}
 </style>
 </head>
 <body>
@@ -2101,6 +2123,23 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
           <tr><td><strong>Adolescent (12–14 yr)</strong></td><td>60–100</td><td>12–20</td><td>100–130</td><td>40–60</td></tr>
         </tbody>
       </table>
+    </div>
+
+
+    <!-- Pediatric Tachycardia Downgrade Rule -->
+    <div style="background:linear-gradient(135deg,#fff8e1,#fff3cd);border-left:5px solid #f39c12;border-radius:12px;padding:18px 22px;margin:28px 0 8px;box-shadow:0 2px 10px rgba(243,156,18,0.12);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="font-size:1.5rem;">&#9888;&#65039;</span>
+        <strong style="font-family:'Montserrat',sans-serif;font-size:0.95rem;color:#c0392b;letter-spacing:0.5px;">PEDIATRIC RULE: Significant Tachycardia &amp; Downgrade</strong>
+      </div>
+      <p style="font-size:0.9rem;color:#2c3e50;line-height:1.7;margin:0 0 10px;">When a child presents with <strong>significant tachycardia</strong> (CTAS 2 level), the paramedic must consider whether the tachycardia is due to distress/crying rather than a true pathological cause.</p>
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;font-size:0.88rem;color:#2c3e50;line-height:1.8;">
+        <div style="margin-bottom:6px;"><span style="background:#e74c3c;color:#fff;border-radius:4px;padding:2px 8px;font-weight:700;font-size:0.78rem;margin-right:8px;">STEP 1</span> Allow the child to calm down (reduce stimulation, comfort measures).</div>
+        <div style="margin-bottom:6px;"><span style="background:#e67e22;color:#fff;border-radius:4px;padding:2px 8px;font-weight:700;font-size:0.78rem;margin-right:8px;">STEP 2</span> <strong>Recheck vital signs</strong> once the child is calm.</div>
+        <div style="margin-bottom:6px;"><span style="background:#27ae60;color:#fff;border-radius:4px;padding:2px 8px;font-weight:700;font-size:0.78rem;margin-right:8px;">IF IMPROVED</span> Tachycardia resolved &rarr; Patient <strong>may be downgraded</strong> to an appropriate lower CTAS level.</div>
+        <div><span style="background:#c0392b;color:#fff;border-radius:4px;padding:2px 8px;font-weight:700;font-size:0.78rem;margin-right:8px;">IF PERSISTS</span> Tachycardia still present &rarr; Classify as <strong>CTAS 2</strong> (Emergent).</div>
+      </div>
+      <p style="font-size:0.78rem;color:#7f8c8d;margin:10px 0 0;font-style:italic;">&#128218; Source: Prehospital CTAS Guide &mdash; Pediatric Section, Cardiovascular CTAS 2 note (*)</p>
     </div>
 
     <!-- Pediatric Modifiers -->
@@ -4016,7 +4055,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .mod-mi-ico svg{width:15px;height:15px;}
 .mod-mi-lbl{font-size:0.58rem;font-weight:700;color:#999;letter-spacing:1px;display:block;}
 .mod-mi-nm{font-size:0.75rem;font-weight:800;color:var(--navy);}
-.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;}
+.mod-mi-body{font-size:0.68rem;color:#444;line-height:1.65;min-width:0;width:100%;word-break:break-word;overflow-wrap:break-word;}
 .mod-mi-body .mod-c1{color:#c0392b;font-weight:700;}
 .mod-mi-body .mod-c2{color:#d35400;font-weight:700;}
 .mod-mi-body .mod-c3{color:#b7950b;font-weight:700;}
