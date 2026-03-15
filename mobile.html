@@ -1015,7 +1015,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 /* ── MODIFIER DETAIL CARDS ── */
 .mod-detail-section{margin-top:6px;}
 .mod-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.mod-detail-col{border-radius:14px;overflow:visible;box-shadow:var(--shadow);min-width:0;}
+.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);min-width:0;}
 .mod-detail-col-hdr{padding:13px 14px;display:flex;align-items:center;gap:10px;}
 .mod-detail-fo-hdr{background:linear-gradient(135deg,var(--fo),#f0c040);}
 .mod-detail-so-hdr{background:linear-gradient(135deg,var(--so),#9775fa);}
@@ -1831,21 +1831,6 @@ input, select, textarea { font-size: 1rem !important; }
 }
 /* Fix all grid items that may collapse */
 .mod-detail-grid > * { min-width: 0; }
-/* Ensure all text in modifiers section wraps and never clips */
-/* === ROOT CAUSE FIX: overflow:hidden clips text in mod-detail-col === */
-.mod-detail-col { overflow: visible !important; }
-.mod-detail-col-body { overflow: visible !important; }
-/* Force single column on all mobile screens to prevent narrow columns */
-@media (max-width: 900px) {
-  .mod-detail-grid { grid-template-columns: 1fr !important; }
-}
-/* Ensure all text in modifiers section wraps and never clips */
-.mod-detail-col *, .mod-detail-col-body *, .mod-mod-item *, .mod-mi-body * {
-  overflow-wrap: break-word !important;
-  word-break: break-word !important;
-  white-space: normal !important;
-  overflow: visible !important;
-}
 </style>
 </head>
 <body>
@@ -4650,7 +4635,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 /* ── MODIFIER DETAIL CARDS ── */
 .mod-detail-section{margin-top:6px;}
 .mod-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.mod-detail-col{border-radius:14px;overflow:visible;box-shadow:var(--shadow);min-width:0;}
+.mod-detail-col{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);min-width:0;}
 .mod-detail-col-hdr{padding:13px 14px;display:flex;align-items:center;gap:10px;}
 .mod-detail-fo-hdr{background:linear-gradient(135deg,var(--fo),#f0c040);}
 .mod-detail-so-hdr{background:linear-gradient(135deg,var(--so),#9775fa);}
