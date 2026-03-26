@@ -969,6 +969,101 @@ table td, table th { font-size: clamp(0.88rem, 1.8vw, 1.05rem) !important; paddi
   min-width: 0 !important;
   width: 100% !important;
 }
+
+/* ===== MOBILE DEFENSIVE OVERRIDE ===== */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  section,
+  .section,
+  .mod-canvas,
+  .alg-wrap,
+  .alg-canvas,
+  .app-shell,
+  .app-card,
+  .app-main,
+  .app-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  .mod-detail-grid,
+  .mod-diff-grid,
+  .alg-mod-grid,
+  .alg-so-row,
+  .alg-rules-crown,
+  .alg-levels-row,
+  .alg-trans-row,
+  .alg-doc-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .mod-detail-col,
+  .mod-detail-col-body,
+  .mod-mod-item,
+  .alg-mod-card,
+  .alg-so-card,
+  .alg-rule-card,
+  .alg-level-card,
+  .alg-trans-card,
+  .alg-doc-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .mod-mi-head,
+  .alg-mod-head {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .mod-mi-head > div:last-child,
+  .alg-mod-head > div:last-child {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
+  .mod-detail-col-hdr-title,
+  .mod-mi-lbl,
+  .mod-mi-nm,
+  .mod-mi-body,
+  .alg-mod-lbl,
+  .alg-mod-nm,
+  .alg-mod-thr,
+  .alg-so-thr,
+  .alg-so-nm,
+  .mod-comp-table th,
+  .mod-comp-table td,
+  .mod-sum-table th,
+  .mod-sum-table td {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    max-width: 100% !important;
+  }
+
+  .mod-comp-table,
+  .mod-sum-table {
+    table-layout: fixed !important;
+    width: 100% !important;
+  }
+
+  [style*="grid-column:span 2"],
+  [style*="grid-column: span 2"] {
+    grid-column: auto !important;
+  }
+}
+/* ===== END MOBILE DEFENSIVE OVERRIDE ===== */
 </style>
 </head>
 <body>
@@ -4349,12 +4444,12 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
     <tr>
       <td>Examples of CTAS 1 Trigger</td>
       <td>SpO₂ &lt;90% · GCS 3–9 · HR &lt;40 or &gt;180 · Temp &gt;41°C · Pain 10/10 + haemodynamic compromise · Uncontrolled haemorrhage · High-energy MOI</td>
-      <td>Imminent delivery · Glucose &lt;3.0 mmol/L + altered LOC · Imminent danger to self or others</td>
+      <td>Imminent delivery · Glucose &lt;54 mg/dL + altered LOC · Imminent danger to self or others</td>
     </tr>
     <tr>
       <td>Examples of CTAS 2 Trigger</td>
       <td>SpO₂ 90–94% · GCS 10–13 · Severe tachycardia · Temp 38.5–41°C toxic · Pain 8–10/10 · Active bleeding + instability</td>
-      <td>Glucose &lt;3.0 mmol/L · SBP &gt;220 or DBP &gt;130 · Active labour &lt;36 weeks · Active suicidal ideation with plan</td>
+      <td>Glucose &lt;54 mg/dL · SBP &gt;220 or DBP &gt;130 · Active labour &lt;36 weeks · Active suicidal ideation with plan</td>
     </tr>
     <tr>
       <td>Documentation</td>
@@ -4516,8 +4611,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
           <div><span class="mod-mi-lbl">SECOND ORDER</span><span class="mod-mi-nm">Blood Glucose</span></div>
         </div>
         <div class="mod-mi-body">
-          <span class="mod-c2">■ CTAS 2:</span> &lt;3.0 mmol/L (hypoglycaemia) · &gt;16 mmol/L (severe hyperglycaemia)<br/>
-          <span class="mod-c3">■ CTAS 3:</span> 3.0–3.5 mmol/L (borderline low) · 14–16 mmol/L (moderate hyperglycaemia)<br/>
+          <span class="mod-c2">■ CTAS 2:</span> &lt;54 mg/dL (hypoglycaemia) · &gt;288 mg/dL (severe hyperglycaemia)<br/>
+          <span class="mod-c3">■ CTAS 3:</span> 54–63 mg/dL (borderline low) · 252–288 mg/dL (moderate hyperglycaemia)<br/>
           With symptoms → upgrade accordingly<br/>
           <span class="mod-kw mod-kw-note" style="margin-top:4px;display:inline-block;">NOTE</span> Always correlate glucose value with clinical presentation and LOC
         </div>
@@ -4772,8 +4867,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   --navy:#1a2a4a; --ink:#1e2d40;
   --bg:#f4f6fa; --white:#ffffff;
   --purple:#7048e8; --purplel:#f3f0ff;
-  --shadow:0 3px 16px rgba(26,42,74,0.alg-10);
-  --shadow-lg:0 6px 28px rgba(26,42,74,0.alg-14);
+  --shadow:0 3px 16px rgba(26,42,74,0.10);
+  --shadow-lg:0 6px 28px rgba(26,42,74,0.14);
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
@@ -4784,19 +4879,19 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   color:#fff;text-align:center;padding:26px 20px 20px;position:relative;overflow:hidden;
 }
 .alg-hdr::before{content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(45deg,rgba(255,255,255,0.alg-018) 0,rgba(255,255,255,0.alg-018) 1px,transparent 1px,transparent 18px);}
-.alg-hdr h1{font-size:clamp(1.alg-3rem,3.alg-5vw,2.alg-2rem);font-weight:900;letter-spacing:2px;text-transform:uppercase;position:relative;}
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,0.018) 0,rgba(255,255,255,0.018) 1px,transparent 1px,transparent 18px);}
+.alg-hdr h1{font-size:clamp(1.3rem,3.5vw,2.2rem);font-weight:900;letter-spacing:2px;text-transform:uppercase;position:relative;}
 .alg-hdr h1 span{color:#f0c040;}
-.alg-hdr p{font-size:clamp(0.alg-72rem,1.alg-8vw,0.alg-9rem);opacity:0.alg-78;margin-top:5px;letter-spacing:1px;position:relative;}
-.alg-hdr-badge{display:inline-block;background:rgba(240,192,64,0.alg-15);border:1px solid rgba(240,192,64,0.alg-4);
-  color:#f0c040;font-size:0.alg-65rem;font-weight:700;letter-spacing:2px;padding:4px 14px;border-radius:20px;margin-top:8px;position:relative;}
+.alg-hdr p{font-size:clamp(0.72rem,1.8vw,0.9rem);opacity:0.78;margin-top:5px;letter-spacing:1px;position:relative;}
+.alg-hdr-badge{display:inline-block;background:rgba(240,192,64,0.15);border:1px solid rgba(240,192,64,0.4);
+  color:#f0c040;font-size:0.65rem;font-weight:700;letter-spacing:2px;padding:4px 14px;border-radius:20px;margin-top:8px;position:relative;}
 
 /* ═══ CANVAS ═══ */
 .alg-canvas{max-width:1060px;margin:0 auto;padding:28px 14px 50px;overflow-x:hidden;}
 
 /* ═══ SECTION LABEL ═══ */
 .alg-sec-label{
-  text-align:center;font-size:0.alg-72rem;font-weight:900;color:#1a2a4a;
+  text-align:center;font-size:0.72rem;font-weight:900;color:#1a2a4a;
   letter-spacing:2px;text-transform:uppercase;margin:18px 0 10px;
   display:flex;align-items:center;gap:10px;justify-content:center;
 }
@@ -4805,10 +4900,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 /* ═══ FLOW ARROW ═══ */
 .alg-arrow{display:flex;justify-content:center;margin:6px 0;}
 .alg-arrow svg{width:22px;height:30px;}
-.alg-arrow-label{text-align:center;font-size:0.alg-72rem;font-weight:800;color:#2c3e6b;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+.alg-arrow-label{text-align:center;font-size:0.72rem;font-weight:800;color:#2c3e6b;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
 
 /* ═══ KEYWORD TAGS ═══ */
-.alg-kw{display:inline-block;font-size:0.alg-68rem;font-weight:800;padding:3px 10px;border-radius:8px;letter-spacing:0.alg-5px;vertical-align:middle;margin:0 2px;}
+.alg-kw{display:inline-block;font-size:0.68rem;font-weight:800;padding:3px 10px;border-radius:8px;letter-spacing:0.5px;vertical-align:middle;margin:0 2px;}
 .alg-kw-must{background:#1a2a4a;color:#f0c040;}
 .alg-kw-never{background:#c0392b;color:#fff;}
 .alg-kw-upo{background:#7048e8;color:#fff;}
@@ -4822,7 +4917,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   display:flex;align-items:center;justify-content:center;gap:10px;
   background:var(--navy);color:#fff;
   border-radius:50px;padding:12px 32px;
-  font-size:0.alg-9rem;font-weight:800;letter-spacing:1px;
+  font-size:0.9rem;font-weight:800;letter-spacing:1px;
   box-shadow:var(--shadow-lg);
   margin:0 auto;width:fit-content;min-width:220px;
 }
@@ -4838,14 +4933,14 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-diamond-shape{
   position:absolute;top:50%;left:50%;
   width:220px;height:56px;
-  background:#fff8e1;border:2.alg-5px solid #d4ac0d;border-radius:10px;
+  background:#fff8e1;border:2.5px solid #d4ac0d;border-radius:10px;
   transform:translate(-50%,-50%) skewX(-16deg);
-  box-shadow:0 3px 12px rgba(212,172,13,0.alg-18);
+  box-shadow:0 3px 12px rgba(212,172,13,0.18);
 }
 .alg-diamond-text{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-size:0.alg-72rem;font-weight:800;color:var(--navy);
-  text-align:center;width:200px;line-height:1.alg-3;
+  font-size:0.72rem;font-weight:800;color:var(--navy);
+  text-align:center;width:200px;line-height:1.3;
   pointer-events:none;
 }
 .alg-branch-row{
@@ -4854,13 +4949,13 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 }
 .alg-branch-yes{
   background:#fdecea;color:var(--c1);
-  font-size:0.alg-62rem;font-weight:800;padding:4px 16px;border-radius:10px;
-  border:1.alg-5px solid #e74c3c;letter-spacing:0.alg-5px;
+  font-size:0.62rem;font-weight:800;padding:4px 16px;border-radius:10px;
+  border:1.5px solid #e74c3c;letter-spacing:0.5px;
 }
 .alg-branch-no{
   background:#eafaf1;color:var(--c4);
-  font-size:0.alg-62rem;font-weight:800;padding:4px 16px;border-radius:10px;
-  border:1.alg-5px solid #27ae60;letter-spacing:0.alg-5px;
+  font-size:0.62rem;font-weight:800;padding:4px 16px;border-radius:10px;
+  border:1.5px solid #27ae60;letter-spacing:0.5px;
 }
 
 /* ═══ PROCESS BOX ═══ */
@@ -4872,9 +4967,9 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-pbox-hdr{display:flex;align-items:center;gap:12px;padding:13px 18px;}
 .alg-pbox-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .alg-pbox-icon svg{width:22px;height:22px;}
-.alg-pbox-step{font-size:0.alg-7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:0.alg-75;display:block;color:#1a2a4a;}
-.alg-pbox-title{font-size:0.alg-95rem;font-weight:800;color:var(--navy);}
-.alg-pbox-body{padding:0 18px 16px;font-size:0.alg-78rem;color:#333;line-height:1.alg-7;}
+.alg-pbox-step{font-size:0.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:0.75;display:block;color:#1a2a4a;}
+.alg-pbox-title{font-size:0.95rem;font-weight:800;color:var(--navy);}
+.alg-pbox-body{padding:0 18px 16px;font-size:0.78rem;color:#333;line-height:1.7;}
 
 /* colour themes */
 .alg-pbox-blue .alg-pbox-hdr{background:#eef2ff;}
@@ -4892,8 +4987,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 
 /* ═══ INFO STRIP ═══ */
 .alg-info-strip{
-  padding:8px 14px;border-radius:9px;font-size:0.alg-68rem;
-  color:#333;line-height:1.alg-6;margin-top:10px;
+  padding:8px 14px;border-radius:9px;font-size:0.68rem;
+  color:#333;line-height:1.6;margin-top:10px;
 }
 .alg-info-strip.alg-amber{background:#fffbeb;border-left:4px solid #d4ac0d;}
 .alg-info-strip.alg-red{background:#fef2f2;border-left:4px solid #c0392b;}
@@ -4915,8 +5010,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-mc-purple{background:#f5f3ff;}
 .alg-mc-teal{background:#f0fdfa;}
 .alg-mc-navy{background:#f0f2f8;}
-.alg-mc-title{font-size:0.alg-75rem;font-weight:800;margin-bottom:3px;color:#1a2a4a;}
-.alg-mc-body{font-size:0.alg-72rem;color:#333;line-height:1.alg-5;}
+.alg-mc-title{font-size:0.75rem;font-weight:800;margin-bottom:3px;color:#1a2a4a;}
+.alg-mc-body{font-size:0.72rem;color:#333;line-height:1.5;}
 
 /* ═══ MODIFIER CARDS GRID ═══ */
 .alg-mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px;}
@@ -4925,7 +5020,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   padding:12px 10px;box-shadow:var(--shadow);
   position:relative;overflow:hidden;
 }
-.alg-mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3.alg-5px;}
+.alg-mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;}
 .alg-mc-A::before{background:linear-gradient(90deg,#3b5bdb,#74c0fc);}
 .alg-mc-B::before{background:linear-gradient(90deg,#0ca678,#63e6be);}
 .alg-mc-C::before{background:linear-gradient(90deg,#c0392b,#ff6b6b);}
@@ -4937,9 +5032,9 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-mod-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
 .alg-mod-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .alg-mod-ico svg{width:16px;height:16px;}
-.alg-mod-lbl{font-size:0.alg-68rem;font-weight:800;color:#2c3e6b;letter-spacing:1px;display:block;}
-.alg-mod-nm{font-size:0.alg-68rem;font-weight:800;color:var(--navy);}
-.alg-mod-thr{font-size:0.alg-72rem;color:#333;line-height:1.alg-7;}
+.alg-mod-lbl{font-size:0.68rem;font-weight:800;color:#2c3e6b;letter-spacing:1px;display:block;}
+.alg-mod-nm{font-size:0.68rem;font-weight:800;color:var(--navy);}
+.alg-mod-thr{font-size:0.72rem;color:#333;line-height:1.7;}
 .alg-thr-1{color:#c0392b;font-weight:700;}
 .alg-thr-2{color:#d35400;font-weight:700;}
 .alg-thr-3{color:#b7950b;font-weight:700;}
@@ -4950,28 +5045,28 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-so-card{
   background:var(--white);border-radius:11px;padding:11px 9px;
   text-align:center;box-shadow:var(--shadow);
-  border-top:3.alg-5px solid #7048e8;
+  border-top:3.5px solid #7048e8;
 }
-.alg-so-ico{font-size:1.alg-5rem;margin-bottom:5px;}
-.alg-so-nm{font-size:0.alg-76rem;font-weight:800;color:var(--navy);margin-bottom:4px;}
-.alg-so-thr{font-size:0.alg-72rem;color:#333;line-height:1.alg-6;text-align:left;}
+.alg-so-ico{font-size:1.5rem;margin-bottom:5px;}
+.alg-so-nm{font-size:0.76rem;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.alg-so-thr{font-size:0.72rem;color:#333;line-height:1.6;text-align:left;}
 .alg-so-thr span{font-weight:700;}
 
 /* ═══ 5 LEVELS ROW ═══ */
 .alg-levels-row{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;}
 .alg-lv-card{border-radius:14px;padding:14px 8px 12px;text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;}
-.alg-lv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(0,0,0,0.alg-12);}
+.alg-lv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(0,0,0,0.12);}
 .alg-lv1{background:linear-gradient(160deg,#c0392b,#e74c3c);color:#fff;}
 .alg-lv2{background:linear-gradient(160deg,#d35400,#e67e22);color:#fff;}
 .alg-lv3{background:linear-gradient(160deg,#b7950b,#d4ac0d);color:#fff;}
 .alg-lv4{background:linear-gradient(160deg,#1e8449,#27ae60);color:#fff;}
 .alg-lv5{background:linear-gradient(160deg,#1a5276,#2980b9);color:#fff;}
-.alg-lv-num{font-size:2.alg-2rem;font-weight:900;line-height:1;opacity:0.alg-9;}
-.alg-lv-name{font-size:0.alg-7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin:4px 0 2px;line-height:1.alg-3;}
-.alg-lv-time{font-size:0.alg-72rem;font-weight:700;opacity:0.alg-85;margin-bottom:7px;}
-.alg-lv-crit{font-size:0.alg-68rem;opacity:0.alg-95;line-height:1.alg-6;text-align:left;padding:0 2px;}
+.alg-lv-num{font-size:2.2rem;font-weight:900;line-height:1;opacity:0.9;}
+.alg-lv-name{font-size:0.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin:4px 0 2px;line-height:1.3;}
+.alg-lv-time{font-size:0.72rem;font-weight:700;opacity:0.85;margin-bottom:7px;}
+.alg-lv-crit{font-size:0.68rem;opacity:0.95;line-height:1.6;text-align:left;padding:0 2px;}
 .alg-lv-crit li{list-style:none;padding-left:10px;position:relative;}
-.alg-lv-crit li::before{content:'▸';position:absolute;left:0;opacity:0.alg-7;}
+.alg-lv-crit li::before{content:'▸';position:absolute;left:0;opacity:0.7;}
 
 /* ═══ TRANSPORT STRIP ═══ */
 .alg-trans-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
@@ -4979,8 +5074,8 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 .alg-tc1{background:#fdecea;border-left:4px solid #c0392b;}
 .alg-tc2{background:#fef3e2;border-left:4px solid #d35400;}
 .alg-tc3{background:#eafaf1;border-left:4px solid #1e8449;}
-.alg-tc-ttl{font-size:0.alg-8rem;font-weight:800;color:var(--navy);margin-bottom:5px;}
-.alg-tc-txt{font-size:0.alg-75rem;color:#333;line-height:1.alg-6;}
+.alg-tc-ttl{font-size:0.8rem;font-weight:800;color:var(--navy);margin-bottom:5px;}
+.alg-tc-txt{font-size:0.75rem;color:#333;line-height:1.6;}
 
 /* ═══ PEDIATRIC SECTION ═══ */
 .alg-ped-wrap{
@@ -4988,19 +5083,19 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   border:2px solid #2980b9;border-radius:14px;
   padding:16px;width:100%;
 }
-.alg-ped-ttl{font-size:0.alg-82rem;font-weight:800;color:#1a5276;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.alg-ped-ttl{font-size:0.82rem;font-weight:800;color:#1a5276;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .alg-ped-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.alg-ped-box{background:#fff;border-radius:10px;padding:11px;box-shadow:0 2px 8px rgba(0,0,0,0.alg-06);}
-.alg-ped-box-ttl{font-size:0.alg-78rem;font-weight:800;color:#1a5276;margin-bottom:8px;}
-.alg-ped-item{font-size:0.alg-75rem;color:#222;padding:5px 0;border-bottom:1px solid #dde4f0;line-height:1.alg-55;}
+.alg-ped-box{background:#fff;border-radius:10px;padding:11px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.alg-ped-box-ttl{font-size:0.78rem;font-weight:800;color:#1a5276;margin-bottom:8px;}
+.alg-ped-item{font-size:0.75rem;color:#222;padding:5px 0;border-bottom:1px solid #dde4f0;line-height:1.55;}
 .alg-ped-item:last-child{border-bottom:none;}
 .alg-ped-item strong{color:#1a5276;}
 
 /* ═══ DOCUMENTATION ROW ═══ */
 .alg-doc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
 .alg-doc-card{background:#fff;border-radius:11px;padding:11px 13px;box-shadow:var(--shadow);}
-.alg-doc-ttl{font-size:0.alg-78rem;font-weight:800;color:var(--navy);margin-bottom:5px;}
-.alg-doc-txt{font-size:0.alg-75rem;color:#333;line-height:1.alg-6;}
+.alg-doc-ttl{font-size:0.78rem;font-weight:800;color:var(--navy);margin-bottom:5px;}
+.alg-doc-txt{font-size:0.75rem;color:#333;line-height:1.6;}
 
 /* ═══ FOOTER QUOTE ═══ */
 .alg-ftr-quote{
@@ -5009,9 +5104,9 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 }
 .alg-ftr-quote blockquote{
   font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(0.alg-85rem,2vw,1.alg-1rem);color:#f0c040;line-height:1.alg-65;
+  font-size:clamp(0.85rem,2vw,1.1rem);color:#f0c040;line-height:1.65;
 }
-.alg-ftr-quote cite{display:block;font-size:0.alg-7rem;color:rgba(255,255,255,0.alg-7);margin-top:8px;letter-spacing:1px;}
+.alg-ftr-quote cite{display:block;font-size:0.7rem;color:rgba(255,255,255,0.7);margin-top:8px;letter-spacing:1px;}
 
 /* ═══ RULES CROWN ═══ */
 .alg-rules-crown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:6px;}
@@ -5022,11 +5117,11 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 }
 .alg-rule-num{
   width:28px;height:28px;background:var(--navy);color:#fff;
-  border-radius:50%;font-size:0.alg-75rem;font-weight:800;
+  border-radius:50%;font-size:0.75rem;font-weight:800;
   display:flex;align-items:center;justify-content:center;margin:0 auto 7px;
 }
-.alg-rule-lbl{font-size:0.alg-76rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:0.alg-5px;line-height:1.alg-4;}
-.alg-rule-txt{font-size:0.alg-76rem;color:#333;margin-top:5px;line-height:1.alg-6;}
+.alg-rule-lbl{font-size:0.76rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:0.5px;line-height:1.4;}
+.alg-rule-txt{font-size:0.76rem;color:#333;margin-top:5px;line-height:1.6;}
 
 /* ═══ RESPONSIVE — TABLET ═══ */
 @media(max-width:900px){
@@ -5043,50 +5138,50 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
 
   /* ── Header ── */
   .alg-hdr{padding:18px 12px 14px;}
-  .alg-hdr h1{font-size:1.alg-25rem;letter-spacing:1px;}
-  .alg-hdr p{font-size:0.alg-78rem;margin-top:4px;}
-  .alg-hdr-badge{font-size:0.alg-68rem;padding:4px 12px;margin-top:7px;}
+  .alg-hdr h1{font-size:1.25rem;letter-spacing:1px;}
+  .alg-hdr p{font-size:0.78rem;margin-top:4px;}
+  .alg-hdr-badge{font-size:0.68rem;padding:4px 12px;margin-top:7px;}
 
   /* ── Section labels ── */
-  .alg-sec-label{font-size:0.alg-82rem;font-weight:900;letter-spacing:1.alg-5px;margin:16px 0 9px;gap:6px;color:#1a2a4a;}
+  .alg-sec-label{font-size:0.82rem;font-weight:900;letter-spacing:1.5px;margin:16px 0 9px;gap:6px;color:#1a2a4a;}
 
   /* ── START / END oval ── */
-  .alg-oval{font-size:0.alg-88rem;padding:11px 22px;min-width:180px;border-radius:40px;}
+  .alg-oval{font-size:0.88rem;padding:11px 22px;min-width:180px;border-radius:40px;}
   .alg-oval svg{width:18px;height:18px;}
 
   /* ── Decision diamond ── */
   .alg-diamond{width:240px;height:76px;}
   .alg-diamond-shape{width:210px;height:54px;}
-  .alg-diamond-text{font-size:0.alg-82rem;width:200px;}
+  .alg-diamond-text{font-size:0.82rem;width:200px;}
   .alg-branch-row{max-width:100%;padding:0 4px;}
-  .alg-branch-yes,.alg-branch-no{font-size:0.alg-72rem;padding:5px 14px;}
+  .alg-branch-yes,.alg-branch-no{font-size:0.72rem;padding:5px 14px;}
 
   /* ── Process boxes ── */
   .alg-pbox-hdr{padding:12px 14px;gap:10px;}
   .alg-pbox-icon{width:38px;height:38px;}
   .alg-pbox-icon svg{width:20px;height:20px;}
-  .alg-pbox-step{font-size:0.alg-75rem;opacity:0.alg-85;}
-  .alg-pbox-title{font-size:1.alg-0rem;}
-  .alg-pbox-body{padding:0 14px 14px;font-size:0.alg-82rem;line-height:1.alg-65;}
+  .alg-pbox-step{font-size:0.75rem;opacity:0.85;}
+  .alg-pbox-title{font-size:1.0rem;}
+  .alg-pbox-body{padding:0 14px 14px;font-size:0.82rem;line-height:1.65;}
 
   /* ── Mini grids inside boxes ── */
   .alg-mg-3,.alg-mg-4,.alg-mg-2{grid-template-columns:1fr;gap:7px;}
-  .alg-mc-title{font-size:0.alg-78rem;margin-bottom:4px;color:#1a2a4a;}
-  .alg-mc-body{font-size:0.alg-75rem;color:#333;line-height:1.alg-55;}
+  .alg-mc-title{font-size:0.78rem;margin-bottom:4px;color:#1a2a4a;}
+  .alg-mc-body{font-size:0.75rem;color:#333;line-height:1.55;}
   .alg-mini-cell{padding:10px 10px;}
 
   /* ── Info strips ── */
-  .alg-info-strip{font-size:0.alg-78rem;padding:9px 12px;margin-top:8px;}
+  .alg-info-strip{font-size:0.78rem;padding:9px 12px;margin-top:8px;}
 
   /* ── Keyword tags ── */
-  .alg-kw{font-size:0.alg-65rem;padding:3px 9px;border-radius:8px;}
+  .alg-kw{font-size:0.65rem;padding:3px 9px;border-radius:8px;}
 
   /* ── Rules crown ── */
   .alg-rules-crown{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
   .alg-rule-pill{padding:12px 10px 10px;}
-  .alg-rule-num{width:30px;height:30px;font-size:0.alg-82rem;margin-bottom:8px;}
-  .alg-rule-lbl{font-size:0.alg-72rem;}
-  .alg-rule-txt{font-size:0.alg-75rem;margin-top:5px;}
+  .alg-rule-num{width:30px;height:30px;font-size:0.82rem;margin-bottom:8px;}
+  .alg-rule-lbl{font-size:0.72rem;}
+  .alg-rule-txt{font-size:0.75rem;margin-top:5px;}
 
   /* ── Modifier cards ── */
   .alg-mod-grid{grid-template-columns:1fr;gap:8px;}
@@ -5094,50 +5189,50 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   .alg-mod-head{gap:10px;margin-bottom:8px;}
   .alg-mod-ico{width:34px;height:34px;border-radius:8px;}
   .alg-mod-ico svg{width:18px;height:18px;}
-  .alg-mod-lbl{font-size:0.alg-72rem;color:#1a2a4a;}
-  .alg-mod-nm{font-size:0.alg-82rem;}
-  .alg-mod-thr{font-size:0.alg-76rem;line-height:1.alg-7;}
+  .alg-mod-lbl{font-size:0.72rem;color:#1a2a4a;}
+  .alg-mod-nm{font-size:0.82rem;}
+  .alg-mod-thr{font-size:0.76rem;line-height:1.7;}
 
   /* ── Second order cards ── */
   .alg-so-row{grid-template-columns:1fr 1fr;gap:8px;}
   .alg-so-card{padding:12px 10px;}
-  .alg-so-ico{font-size:1.alg-6rem;margin-bottom:5px;}
-  .alg-so-nm{font-size:0.alg-75rem;margin-bottom:5px;}
-  .alg-so-thr{font-size:0.alg-72rem;line-height:1.alg-6;}
+  .alg-so-ico{font-size:1.6rem;margin-bottom:5px;}
+  .alg-so-nm{font-size:0.75rem;margin-bottom:5px;}
+  .alg-so-thr{font-size:0.72rem;line-height:1.6;}
 
   /* ── 5 Level cards ── */
   .alg-levels-row{grid-template-columns:1fr 1fr;gap:8px;}
   .alg-lv-card{padding:13px 8px 11px;border-radius:12px;}
-  .alg-lv-num{font-size:2.alg-0rem;}
-  .alg-lv-name{font-size:0.alg-7rem;letter-spacing:0.alg-5px;margin:4px 0 2px;}
-  .alg-lv-time{font-size:0.alg-78rem;margin-bottom:7px;}
-  .alg-lv-crit{font-size:0.alg-68rem;line-height:1.alg-55;}
+  .alg-lv-num{font-size:2.0rem;}
+  .alg-lv-name{font-size:0.7rem;letter-spacing:0.5px;margin:4px 0 2px;}
+  .alg-lv-time{font-size:0.78rem;margin-bottom:7px;}
+  .alg-lv-crit{font-size:0.68rem;line-height:1.55;}
 
   /* ── Transport cards ── */
   .alg-trans-row{grid-template-columns:1fr;gap:8px;}
   .alg-trans-card{padding:12px 13px;}
-  .alg-tc-ttl{font-size:0.alg-78rem;margin-bottom:6px;}
-  .alg-tc-txt{font-size:0.alg-75rem;line-height:1.alg-6;}
+  .alg-tc-ttl{font-size:0.78rem;margin-bottom:6px;}
+  .alg-tc-txt{font-size:0.75rem;line-height:1.6;}
 
   /* ── Documentation cards ── */
   .alg-doc-row{grid-template-columns:1fr;gap:8px;}
   .alg-doc-card{padding:12px 13px;}
-  .alg-doc-ttl{font-size:0.alg-78rem;margin-bottom:6px;}
-  .alg-doc-txt{font-size:0.alg-75rem;line-height:1.alg-6;}
+  .alg-doc-ttl{font-size:0.78rem;margin-bottom:6px;}
+  .alg-doc-txt{font-size:0.75rem;line-height:1.6;}
 
   /* ── Pediatric section ── */
   .alg-ped-wrap{padding:14px 12px;margin-top:10px;}
-  .alg-ped-ttl{font-size:0.alg-88rem;margin-bottom:10px;}
+  .alg-ped-ttl{font-size:0.88rem;margin-bottom:10px;}
   .alg-ped-ttl svg{width:20px;height:20px;}
   .alg-ped-grid{grid-template-columns:1fr;gap:9px;}
   .alg-ped-box{padding:12px 11px;}
-  .alg-ped-box-ttl{font-size:0.alg-75rem;margin-bottom:8px;}
-  .alg-ped-item{font-size:0.alg-73rem;padding:4px 0;line-height:1.alg-5;}
+  .alg-ped-box-ttl{font-size:0.75rem;margin-bottom:8px;}
+  .alg-ped-item{font-size:0.73rem;padding:4px 0;line-height:1.5;}
 
   /* ── Footer quote ── */
   .alg-ftr-quote{padding:16px 14px;margin-top:16px;}
-  .alg-ftr-quote blockquote{font-size:0.alg-92rem;line-height:1.alg-65;}
-  .alg-ftr-quote cite{font-size:0.alg-68rem;margin-top:7px;}
+  .alg-ftr-quote blockquote{font-size:0.92rem;line-height:1.65;}
+  .alg-ftr-quote cite{font-size:0.68rem;margin-top:7px;}
 
   /* ── Arrows ── */
   .alg-arrow{margin:5px 0;}
@@ -5154,10 +5249,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
   .alg-so-row{grid-template-columns:1fr;}
   .alg-rules-crown{grid-template-columns:1fr;}
   .alg-levels-row{grid-template-columns:1fr 1fr;}
-  .alg-hdr h1{font-size:1.alg-1rem;}
-  .alg-pbox-title{font-size:0.alg-95rem;}
-  .alg-mod-nm{font-size:0.alg-78rem;}
-  .alg-mod-thr{font-size:0.alg-72rem;}
+  .alg-hdr h1{font-size:1.1rem;}
+  .alg-pbox-title{font-size:0.95rem;}
+  .alg-mod-nm{font-size:0.78rem;}
+  .alg-mod-thr{font-size:0.72rem;}
 }
 
 
@@ -5543,10 +5638,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
         <div class="alg-so-ico">🩸</div>
         <div class="alg-so-nm">Blood Glucose</div>
         <div class="alg-so-thr">
-          <span class="alg-thr-1">■ &lt;3.0 mmol/L</span> → CTAS 2<br/>
-          <span class="alg-thr-3">■ 3.0–3.5 mmol/L</span> → CTAS 3<br/>
-          <span class="alg-thr-2">■ &gt;16 mmol/L</span> → CTAS 2<br/>
-          <span class="alg-thr-3">■ 14–16 mmol/L</span> → CTAS 3<br/>
+          <span class="alg-thr-1">■ &lt;54 mg/dL</span> → CTAS 2<br/>
+          <span class="alg-thr-3">■ 54–63 mg/dL</span> → CTAS 3<br/>
+          <span class="alg-thr-2">■ &gt;288 mg/dL</span> → CTAS 2<br/>
+          <span class="alg-thr-3">■ 252–288 mg/dL</span> → CTAS 3<br/>
           With symptoms → upgrade accordingly
         </div>
       </div>
@@ -5640,7 +5735,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);m
           <li>Severe pain 8–10/10</li>
           <li>SpO₂ 90–94%</li>
           <li>Active suicidal ideation + plan</li>
-          <li>Blood glucose &lt;3.0 mmol/L</li>
+          <li>Blood glucose &lt;54 mg/dL</li>
         </ul>
       </div>
 
